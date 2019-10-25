@@ -759,6 +759,16 @@ public class WsAnswer extends WebSocketServlet {
 					messageforallquery(messageA08P06,myoutbound);
 				}
 			}
+        	if(vidZaprosa.toString().equals("A08P06_123"))
+			{
+				System.out.println("??????? A08P06_123");
+				Message messageA08P06date = new MessageA08p06date();
+
+				if (task.add(userMachine))
+				{
+					messageforallquery(messageA08P06date,myoutbound);
+				}
+			}
         	if(vidZaprosa.toString().equals("A08P02"))
 			{
 				Message messageA08P02 = new MessageA08p02();
@@ -1284,14 +1294,10 @@ public class WsAnswer extends WebSocketServlet {
 										Desktop.getDesktop().open(
 												excelFileEssence);
 									}
-
 								}
-
 							} else {
-								System.out
-										.println("загрузки в эксель не произошло");
+								System.out.println("загрузки в эксель не произошло");
 							}
-
 						} else {
 							System.out.println("ошибка в парсинге упр2");
 						}
@@ -1302,7 +1308,7 @@ public class WsAnswer extends WebSocketServlet {
 			}
 		}
 
-
+		//a08p03
 		private void messageforallquery(Message mes, WsOutbound myoutbound) throws Exception {
 			if (mes.create(userMachine)) {
 				 new AnswerData().loadToExcel(mes.getDataList(), userMachine +".xls");

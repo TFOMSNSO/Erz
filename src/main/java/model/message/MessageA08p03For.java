@@ -151,7 +151,6 @@ public class MessageA08p03For extends MessageCommon {
 	{
 		for (int i = 1; i < count; i++) 
 		{
-		
 			Element adt_a01 = new Element("ADT_A01", namespace);
 			rootElement.addContent(adt_a01);
 			

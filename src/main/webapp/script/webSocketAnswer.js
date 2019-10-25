@@ -1,9 +1,12 @@
 $.getScript('js/spin.js');
-var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+var full = 'ws://'+location.hostname+(location.port ? ':'+location.port: '') + '/wsAnswerNew';
+
 var port = +location.port ? ':'+location.port: '';
 
-// var ws = new WebSocket("ws://192.168.199.240"+port+"/wsAnswerNew");
-var ws = new WebSocket("ws://localhost"+port+"/wsAnswerNew");
+console.log('full:' + full);
+
+
+var ws = new WebSocket("ws://localhost"+port+"/wsAnswerNew"); // для тестирования
 // var ws = new WebSocket("ws://asu-srp"+port+"/ErzNsk/wsAnswerNew");
 
 
@@ -48,7 +51,6 @@ function getNowCount()
 
 
 ws.onmessage = function(message) {
-	// console.log('message:' + message.data);
 	if(message.data.indexOf('*')>0) {
 		
 		document.getElementById("oneTimeTask").value = message.data.substring(0,message.data.indexOf('*'));

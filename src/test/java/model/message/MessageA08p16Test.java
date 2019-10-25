@@ -2,10 +2,13 @@ package model.message;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
+@Ignore
 public class MessageA08p16Test {
     private String _1 = "1";
     private String _3 = "3";

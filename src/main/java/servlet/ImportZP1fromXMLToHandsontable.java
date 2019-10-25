@@ -38,7 +38,7 @@ public class ImportZP1fromXMLToHandsontable extends HttpServlet {
 	  String json = null ;
 	  //ловим данные с webSocketAnswer.js
 	  String uprak2 = request.getParameter("uprak2");
-	  System.out.println("uprak2:" + uprak2);
+//	  System.out.println("uprak2:" + uprak2);
 	  String upr = request.getParameter("datauprmessZP");
 //	  System.out.println("upr:" + upr);
 	  String kluch = request.getParameter("kluch");
@@ -59,7 +59,7 @@ public class ImportZP1fromXMLToHandsontable extends HttpServlet {
 	  // парсим uprak2. ключ нужен для определения какой упрак какого запроса будем парсить.    
 	  ZpLoadMock2 zpLoad = new ZpLoadMock2();
 	  ArrayList<ArrayList<String>>  parsedUprak2 = zpLoad.load(uprak2);
-	  System.out.println("parsed uprak2:" + parsedUprak2);
+//	  System.out.println("parsed uprak2:" + parsedUprak2);
 	  ArrayList<ArrayList<String>> parsedatauprak2ZP1 = parse(parsedUprak2);
 
 	if(kluch != null && (kluch.equals("zp1fiodtable") || kluch.equals("A03P07other") || kluch.equals("otherzp9"))){

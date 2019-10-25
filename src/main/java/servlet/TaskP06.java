@@ -54,16 +54,8 @@ public class TaskP06 extends HttpServlet {
             }
 
 
-                System.out.println("count: " +enps.size() + "enps:" + result.toString());
-                resp.getWriter().write(new Gson().toJson(result));
-//            }
-
-
-
-
-
-
-
+            System.out.println("count: " +enps.size() + "enps:" + result.toString());
+            resp.getWriter().write(new Gson().toJson(result));
 
         } catch (Exception e) {
             e.printStackTrace();

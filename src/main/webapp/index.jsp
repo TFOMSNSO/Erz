@@ -1845,6 +1845,13 @@ $(document).ready(function()
 												value="P27">П27</button>
 
 										</li>
+										<li>
+
+											<button class="btn btn-primary" id="menuindex"
+												title="Смена страховки без смены СМО"
+												value="A08P06_123">A08P06_123</button>
+
+										</li>
 									</div>
 									<div class="col-lg-4">
 										<li>

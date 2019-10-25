@@ -119,9 +119,10 @@ public class MessageA08p06 extends MessageCommon {
 			in1_2_3.addContent(new Element("CX.5", namespace).addContent("NII"));
 	
 			in1_2.addContent(new Element("IN1.12", namespace).addContent(dataList.get(i).get(VS_DATEPLUS1)));
-	
-			in1_2.addContent(new Element("IN1.13", namespace).addContent(""));
-	
+
+
+			in1_2.addContent(new Element("IN1.13", namespace).addContent(dataList.get(i).get(70)));
+
 			in1_2.addContent(new Element("IN1.15", namespace).addContent("50000"));
 
 			if(dataList.get(i).get(TYPE_POL).equals("Ý")){
@@ -129,12 +130,12 @@ public class MessageA08p06 extends MessageCommon {
 				in1_2.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(NBLANC)));
 			}else{
 				in1_2.addContent(new Element("IN1.35", namespace).addContent("Ï"));
-				in1_2.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(NBLANC)));	
+				in1_2.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(NBLANC)));
 			}
-			
+
 			//in1_2.addContent(new Element("IN1.35", namespace).addContent("Ï"));
-			
-			//in1_2.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(NBLANC)));	
+
+			//in1_2.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(NBLANC)));
 
 			System.out.println(" middle - " + i);
 			listGuid(guidMsh, i, "6");

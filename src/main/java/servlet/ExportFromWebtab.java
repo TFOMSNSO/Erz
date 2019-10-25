@@ -85,7 +85,7 @@ private static final long serialVersionUID = 1L;
       // 3. Convert received JSON to Article
       ListWeb article = mapper.readValue(fg2, ListWeb.class);
        String user = article.getGouser();
-       System.out.println("^^^^^^^^^^^b "+ user);
+//       System.out.println("^^^^^^^^^^^b "+ user);
       
       
       ArrayList<ArrayList<String>> ls = null;

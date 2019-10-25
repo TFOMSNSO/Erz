@@ -131,17 +131,14 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		 */
 		createMiddle(count, namespace, rootElement, curDate);
 		
-		long timeGiud0 = System.currentTimeMillis();
-		
 		
 		rememberGuid();
-		long timeGiud1 = System.currentTimeMillis();
-
-		if(count < 10) { 
-			long timeArchive0 = System.currentTimeMillis();
+		System.out.println("personEnpOutput:" + personEnpOutput.toString());
+		//äëÿ à08ï06 ïðîñòàâëÿåì â person_enp_output pack_id = 100
+		if(personEnpOutput.get(0).get(2).equals("6")){
 			writeToArchive();
-			long timeArchive1 = System.currentTimeMillis();
-
+		}else if(count < 10) {
+			writeToArchive();
 		}
 		
 		Element bts = new Element("BTS", namespace);
@@ -170,7 +167,6 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		long diff = (int)(after - before) / count;
 
 		new TimeTaskImpl().oneTimeTasksWrite(diff);
-		
 		return true;
 	}
 
@@ -224,7 +220,10 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 
 
 		rememberGuid();
-		if(count < 10) {
+		//äëÿ à08ï06 ïðîñòàâëÿåì â person_enp_output pack_id = 100
+		if(personEnpOutput.get(0).get(2).equals("6")){
+			writeToArchive();
+		}else if(count < 10) {
 			writeToArchive();
 		}
 
@@ -481,8 +480,12 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		pid.addContent( new Element("PID.23", namespace).addContent(dataList.get(i).get(BORN)));
 
 		Element pid26 = new Element("PID.26", namespace);
+		String rus = dataList.get(i).get(RUSSIAN);
+		if(rus.equals("Á/Ã") || rus.equals("ÁÃ") || rus.equals("")){
+			rus = "RUS";
+		}
 		pid.addContent(pid26);
-		pid26.addContent(new Element("CWE.1", namespace).addContent(dataList.get(i).get(RUSSIAN)));
+		pid26.addContent(new Element("CWE.1", namespace).addContent(rus));
 		pid26.addContent(new Element("CWE.3", namespace).addContent("1.2.643.2.40.5.0.25.3"));
 
 
@@ -493,8 +496,8 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		 **/
 		
 		KATEG = dataList.get(0).get(0).equals("PERSON_SERDOC") ? 69 : 21;
-		System.out.println("KATEG:" + dataList.get(i).get(KATEG));
-		System.out.println("rus:" + dataList.get(i).get(RUSSIAN));
+//		System.out.println("KATEG:" + dataList.get(i).get(KATEG));
+//		System.out.println("rus:" + dataList.get(i).get(RUSSIAN));
 		if(! dataList.get(i).get(RUSSIAN).equals("RUS")){
 			if(dataList.get(i).get(KATEG).equals("5") || dataList.get(i).get(KATEG).equals("10")){
 				Element pid26_2 = new Element("PID.26", namespace);
@@ -509,7 +512,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 			}else if(dataList.get(i).get(KATEG).equals("2") || dataList.get(i).get(KATEG).equals("7")){
 				Element pid26_2 = new Element("PID.26", namespace);
 				pid.addContent(pid26_2);
-				pid26_2.addContent(new Element("CWE.1", namespace).addContent("3"));
+				pid26_2.addContent(new Element("CWE.1", namespace).addContent("4"));
 				pid26_2.addContent(new Element("CWE.3", namespace).addContent("1.2.643.2.40.3.3.0.6.19"));
 			}else if(dataList.get(i).get(KATEG).equals("11")){
 				Element pid26_2 = new Element("PID.26", namespace);
@@ -759,6 +762,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 					}
 				}
 				dataList.add(dataListRow);
+//				System.out.println(prepareData + ")" + " size = " + dataListRow.size() + " :::" + dataListRow);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1248,7 +1252,6 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		
 		// ÄÅËÀÅÌ çàïðîñ select èç òàáëèö
 		resultSet = new TaskOracle().selectDataForZPAjaxQukly(statement, userMachine,parseStList);
-		//System.out.println("ÎÒÐÀÁÎÒÀË ÁÎËÜØÎÉ ÇÀÏÐÎÑ");
 		// áåðåì ìåòà äàííûå  
 		
 		ResultSetMetaData metaData = resultSet.getMetaData();

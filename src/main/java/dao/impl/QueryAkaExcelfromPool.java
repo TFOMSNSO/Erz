@@ -134,7 +134,7 @@ public class QueryAkaExcelfromPool
 			for(String id : vids){
 				CallableStatement statement = conn.prepareCall("{call p_gen_new_enp(?)}");
 				statement.setString(1,id);
-				statement.execute();
+				statement.executeUpdate();
 				response += id + "-generate ok!\n";
 			}
 		} catch (SQLException e){
