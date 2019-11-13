@@ -24,17 +24,17 @@ public class TaskMock implements Task {
 			String excelFile = username + ".xls";
 			//записываем в коллекцию д	анные из рабочего эксель файла (Erznsk_all_the_rest/excel
 			ArrayList<ArrayList<String>> taskList = new ExcelTaskMock().taskCreate(excelFile);
-			System.out.println("taskList:");
+/*			System.out.println("taskList:");
 			for(ArrayList<String> x : taskList){
 				System.out.println(x.size() + ":" + x);
-			}
+			}*/
 			// бежим по количеству строк
 			//вставляем данные в таблицу xml_task
 			long timeInsert0 = System.currentTimeMillis();
 			for (int i = 0; i < taskList.size(); i++)
 			{
-				System.out.println(i + 1 + " ENP load - " + taskList.get(i).get(0));
-				
+//				System.out.println(i + 1 + " ENP load - " + taskList.get(i).get(0));
+
 				taskOracle.insertNewTask(statement, taskList.get(i).get(0), taskList.get(i).get(1), taskList.get(i).get(2), username
 						 ,taskList.get(i).get(3), taskList.get(i).get(4), taskList.get(i).get(5), taskList.get(i).get(6), taskList.get(i).get(7)
 						 ,taskList.get(i).get(8), taskList.get(i).get(9), taskList.get(i).get(10), taskList.get(i).get(11), taskList.get(i).get(12)

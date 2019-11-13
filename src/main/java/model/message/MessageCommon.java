@@ -48,7 +48,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 			 *  если формируется п02 то pid29 становится равный 20 и за счет этого формируется тэг pid29 и из коллекции под двадцатым элементом лежит
 			 *  дата pid29
 			 */
-			Pid29 = 777;
+			Pid29 = 777,D1 = 71;
 			
 	
 
@@ -267,6 +267,8 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 	@Override
 	public boolean prepareData(String userMachine, ArrayList<ArrayList<String>> listList1) {
 		// зачищаем от предыдущих дынных
+        System.out.println("Prepare data: datalist = ");
+
 		dataList.clear();
 		dataList = listList1;
 		return true;
@@ -416,7 +418,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 			pid3_2.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
 			pid3_2.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 		}
-		
+
 		if (dataList.get(i).get(PERSON_DOCPERSONID).equals("21")) {
 			Element pid3_5 = new Element("PID.3", namespace);
 			pid.addContent(pid3_5);
@@ -429,8 +431,20 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 			}
 			String d2 = dataList.get(i).get(D2);
 			String d2minus3year ="";
-			if(!d2.equals("")) {	d2minus3year = String.valueOf(Integer.parseInt(d2.substring(0, 4)) - 3) + d2.substring(4);}
-			pid3_5.addContent(new Element("CX.7", namespace).addContent(d2minus3year));
+			if(!d2.equals("")) {
+				d2minus3year = String.valueOf(Integer.parseInt(d2.substring(0, 4)) - 3) + d2.substring(4);
+			}
+
+			String d1 = dataList.get(i).get(D1);
+			if(d1.length() > 10)
+				d1 = d1.substring(0, 10);
+	/*		if(dataList.get(i).size() == 72)
+				pid3_5.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(D1).substring(0,10)));
+			else
+	*/			pid3_5.addContent(new Element("CX.7", namespace).addContent(d1));
+
+
+
 			pid3_5.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 		}
 		try {
@@ -779,28 +793,109 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 				e.printStackTrace();
 			}
 		}
-
 		return true;
 	}
 
+
+	public MessageCommon(int PERSON_SERDOC, int PERSON_NUMDOC, int PERSON_DOCPERSONID, int PERSON_SURNAME, int PERSON_KINDFIRSTNAME, int PERSON_KINDLASTNAME, int PERSON_BIRTHDAY,
+						 int PERSON_SEX, int PERSON_LINKSMOESTABLISHMENTID, int ENP, int PERSON_ADDRESSID, int PERSON_DATEINPUT, int SNILS, int BORN, int DATEPASSPORT, int ENP_PA,
+						 int VS_NUM, int VS_DATE, int ZAD, int d2, int SMO, int d_12, int d_13, int OKATO_3, int TYPE_POL, int POL, int ENP_1, int ENP_2, int p14CX1, int p14CX5,
+						 int p14CX6, int p14CX7, int XPN1, int XPN2, int XPN3, int USERNAME, int ZADMINUS1, int ZADPLUS40, int NBLANC, int VS_DATEPLUS1, int USER_ENP, int USER_PERSON_SURNAME,
+						 int USER_PERSON_KINDFIRSTNAME, int USER_PERSON_KINDLASTNAME, int USER_SMO, int USER_D_12, int USER_D_13, int USER_OKATO_3, int USER_TYPE_POL, int USER_POL, int RUSSIAN,
+						 int d_V, int d_SER, int d_NUM, int PR_FAM, int PR_IM, int PR_OT, int LAST_FAM, int LAST_IM, int LAST_OT, int LAST_DR, int PFR_SNILS, int PFR_ID, int PFR_NOTID,
+						 int USER_SERDOC, int USER_NUMDOC, int USER_DOCID, int USER_DOC_DATE, int d_12_PLUS1, int KATEG, int pid29, int d1) {
+		this.PERSON_SERDOC = PERSON_SERDOC;
+		this.PERSON_NUMDOC = PERSON_NUMDOC;
+		this.PERSON_DOCPERSONID = PERSON_DOCPERSONID;
+		this.PERSON_SURNAME = PERSON_SURNAME;
+		this.PERSON_KINDFIRSTNAME = PERSON_KINDFIRSTNAME;
+		this.PERSON_KINDLASTNAME = PERSON_KINDLASTNAME;
+		this.PERSON_BIRTHDAY = PERSON_BIRTHDAY;
+		this.PERSON_SEX = PERSON_SEX;
+		this.PERSON_LINKSMOESTABLISHMENTID = PERSON_LINKSMOESTABLISHMENTID;
+		this.ENP = ENP;
+		this.PERSON_ADDRESSID = PERSON_ADDRESSID;
+		this.PERSON_DATEINPUT = PERSON_DATEINPUT;
+		this.SNILS = SNILS;
+		this.BORN = BORN;
+		this.DATEPASSPORT = DATEPASSPORT;
+		this.ENP_PA = ENP_PA;
+		this.VS_NUM = VS_NUM;
+		this.VS_DATE = VS_DATE;
+		this.ZAD = ZAD;
+		D2 = d2;
+		this.SMO = SMO;
+		D_12 = d_12;
+		D_13 = d_13;
+		this.OKATO_3 = OKATO_3;
+		this.TYPE_POL = TYPE_POL;
+		this.POL = POL;
+		this.ENP_1 = ENP_1;
+		this.ENP_2 = ENP_2;
+		P14CX1 = p14CX1;
+		P14CX5 = p14CX5;
+		P14CX6 = p14CX6;
+		P14CX7 = p14CX7;
+		this.XPN1 = XPN1;
+		this.XPN2 = XPN2;
+		this.XPN3 = XPN3;
+		this.USERNAME = USERNAME;
+		this.ZADMINUS1 = ZADMINUS1;
+		this.ZADPLUS40 = ZADPLUS40;
+		this.NBLANC = NBLANC;
+		this.VS_DATEPLUS1 = VS_DATEPLUS1;
+		this.USER_ENP = USER_ENP;
+		this.USER_PERSON_SURNAME = USER_PERSON_SURNAME;
+		this.USER_PERSON_KINDFIRSTNAME = USER_PERSON_KINDFIRSTNAME;
+		this.USER_PERSON_KINDLASTNAME = USER_PERSON_KINDLASTNAME;
+		this.USER_SMO = USER_SMO;
+		this.USER_D_12 = USER_D_12;
+		this.USER_D_13 = USER_D_13;
+		this.USER_OKATO_3 = USER_OKATO_3;
+		this.USER_TYPE_POL = USER_TYPE_POL;
+		this.USER_POL = USER_POL;
+		this.RUSSIAN = RUSSIAN;
+		D_V = d_V;
+		D_SER = d_SER;
+		D_NUM = d_NUM;
+		this.PR_FAM = PR_FAM;
+		this.PR_IM = PR_IM;
+		this.PR_OT = PR_OT;
+		this.LAST_FAM = LAST_FAM;
+		this.LAST_IM = LAST_IM;
+		this.LAST_OT = LAST_OT;
+		this.LAST_DR = LAST_DR;
+		this.PFR_SNILS = PFR_SNILS;
+		this.PFR_ID = PFR_ID;
+		this.PFR_NOTID = PFR_NOTID;
+		this.USER_SERDOC = USER_SERDOC;
+		this.USER_NUMDOC = USER_NUMDOC;
+		this.USER_DOCID = USER_DOCID;
+		this.USER_DOC_DATE = USER_DOC_DATE;
+		D_12_PLUS1 = d_12_PLUS1;
+		this.KATEG = KATEG;
+		Pid29 = pid29;
+		D1 = d1;
+	}
+
 	public MessageCommon(int pERSON_SERDOC, int pERSON_NUMDOC,
-			int pERSON_DOCPERSONID, int pERSON_SURNAME,
-			int pERSON_KINDFIRSTNAME, int pERSON_KINDLASTNAME,
-			int pERSON_BIRTHDAY, int pERSON_SEX,
-			int pERSON_LINKSMOESTABLISHMENTID, int eNP, int pERSON_ADDRESSID,
-			int pERSON_DATEINPUT, int sNILS, int bORN, int dATEPASSPORT,
-			int eNP_PA, int vS_NUM, int vS_DATE, int zAD, int d2, int sMO,
-			int d_12, int d_13, int oKATO_3, int tYPE_POL, int pOL, int eNP_1,
-			int eNP_2, int p14cx1, int p14cx5, int p14cx6, int p14cx7,
-			int xPN1, int xPN2, int xPN3, int uSERNAME, int zADMINUS1,
-			int zADPLUS40, int nBLANC, int vS_DATEPLUS1, int uSER_ENP,
-			int uSER_PERSON_SURNAME, int uSER_PERSON_KINDFIRSTNAME,
-			int uSER_PERSON_KINDLASTNAME, int uSER_SMO, int uSER_D_12,
-			int uSER_D_13, int uSER_OKATO_3, int uSER_TYPE_POL, int uSER_POL,
-			int rUSSIAN, int d_V, int d_SER, int d_NUM, int pR_FAM, int pR_IM,
-			int pR_OT, int lAST_FAM, int lAST_IM, int lAST_OT, int lAST_DR,
-			int pFR_SNILS, int pFR_ID, int pFR_NOTID, int uSER_SERDOC,
-			int uSER_NUMDOC, int uSER_DOCID, int uSER_DOC_DATE, int d_12_PLUS1,int pid29) {
+						 int pERSON_DOCPERSONID, int pERSON_SURNAME,
+						 int pERSON_KINDFIRSTNAME, int pERSON_KINDLASTNAME,
+						 int pERSON_BIRTHDAY, int pERSON_SEX,
+						 int pERSON_LINKSMOESTABLISHMENTID, int eNP, int pERSON_ADDRESSID,
+						 int pERSON_DATEINPUT, int sNILS, int bORN, int dATEPASSPORT,
+						 int eNP_PA, int vS_NUM, int vS_DATE, int zAD, int d2, int sMO,
+						 int d_12, int d_13, int oKATO_3, int tYPE_POL, int pOL, int eNP_1,
+						 int eNP_2, int p14cx1, int p14cx5, int p14cx6, int p14cx7,
+						 int xPN1, int xPN2, int xPN3, int uSERNAME, int zADMINUS1,
+						 int zADPLUS40, int nBLANC, int vS_DATEPLUS1, int uSER_ENP,
+						 int uSER_PERSON_SURNAME, int uSER_PERSON_KINDFIRSTNAME,
+						 int uSER_PERSON_KINDLASTNAME, int uSER_SMO, int uSER_D_12,
+						 int uSER_D_13, int uSER_OKATO_3, int uSER_TYPE_POL, int uSER_POL,
+						 int rUSSIAN, int d_V, int d_SER, int d_NUM, int pR_FAM, int pR_IM,
+						 int pR_OT, int lAST_FAM, int lAST_IM, int lAST_OT, int lAST_DR,
+						 int pFR_SNILS, int pFR_ID, int pFR_NOTID, int uSER_SERDOC,
+						 int uSER_NUMDOC, int uSER_DOCID, int uSER_DOC_DATE, int d_12_PLUS1, int pid29) {
 		
 		PERSON_SERDOC = pERSON_SERDOC;
 		PERSON_NUMDOC = pERSON_NUMDOC;
@@ -872,9 +967,99 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		USER_DOC_DATE = uSER_DOC_DATE;
 		D_12_PLUS1 = d_12_PLUS1;
 		Pid29 = pid29;
-		
-		
-		
+
+	}
+	public MessageCommon(int pERSON_SERDOC, int pERSON_NUMDOC,
+						 int pERSON_DOCPERSONID, int pERSON_SURNAME,
+						 int pERSON_KINDFIRSTNAME, int pERSON_KINDLASTNAME,
+						 int pERSON_BIRTHDAY, int pERSON_SEX,
+						 int pERSON_LINKSMOESTABLISHMENTID, int eNP, int pERSON_ADDRESSID,
+						 int pERSON_DATEINPUT, int sNILS, int bORN, int dATEPASSPORT,
+						 int eNP_PA, int vS_NUM, int vS_DATE, int zAD, int d2, int sMO,
+						 int d_12, int d_13, int oKATO_3, int tYPE_POL, int pOL, int eNP_1,
+						 int eNP_2, int p14cx1, int p14cx5, int p14cx6, int p14cx7,
+						 int xPN1, int xPN2, int xPN3, int uSERNAME, int zADMINUS1,
+						 int zADPLUS40, int nBLANC, int vS_DATEPLUS1, int uSER_ENP,
+						 int uSER_PERSON_SURNAME, int uSER_PERSON_KINDFIRSTNAME,
+						 int uSER_PERSON_KINDLASTNAME, int uSER_SMO, int uSER_D_12,
+						 int uSER_D_13, int uSER_OKATO_3, int uSER_TYPE_POL, int uSER_POL,
+						 int rUSSIAN, int d_V, int d_SER, int d_NUM, int pR_FAM, int pR_IM,
+						 int pR_OT, int lAST_FAM, int lAST_IM, int lAST_OT, int lAST_DR,
+						 int pFR_SNILS, int pFR_ID, int pFR_NOTID, int uSER_SERDOC,
+						 int uSER_NUMDOC, int uSER_DOCID, int uSER_DOC_DATE, int d_12_PLUS1, int pid29, int d1) {
+
+		PERSON_SERDOC = pERSON_SERDOC;
+		PERSON_NUMDOC = pERSON_NUMDOC;
+		PERSON_DOCPERSONID = pERSON_DOCPERSONID;
+		PERSON_SURNAME = pERSON_SURNAME;
+		PERSON_KINDFIRSTNAME = pERSON_KINDFIRSTNAME;
+		PERSON_KINDLASTNAME = pERSON_KINDLASTNAME;
+		PERSON_BIRTHDAY = pERSON_BIRTHDAY;
+		PERSON_SEX = pERSON_SEX;
+		PERSON_LINKSMOESTABLISHMENTID = pERSON_LINKSMOESTABLISHMENTID;
+		ENP = eNP;
+		PERSON_ADDRESSID = pERSON_ADDRESSID;
+		PERSON_DATEINPUT = pERSON_DATEINPUT;
+		SNILS = sNILS;
+		BORN = bORN;
+		DATEPASSPORT = dATEPASSPORT;
+		ENP_PA = eNP_PA;
+		VS_NUM = vS_NUM;
+		VS_DATE = vS_DATE;
+		ZAD = zAD;
+		D2 = d2;
+		SMO = sMO;
+		D_12 = d_12;
+		D_13 = d_13;
+		OKATO_3 = oKATO_3;
+		TYPE_POL = tYPE_POL;
+		POL = pOL;
+		ENP_1 = eNP_1;
+		ENP_2 = eNP_2;
+		P14CX1 = p14cx1;
+		P14CX5 = p14cx5;
+		P14CX6 = p14cx6;
+		P14CX7 = p14cx7;
+		XPN1 = xPN1;
+		XPN2 = xPN2;
+		XPN3 = xPN3;
+		USERNAME = uSERNAME;
+		ZADMINUS1 = zADMINUS1;
+		ZADPLUS40 = zADPLUS40;
+		NBLANC = nBLANC;
+		VS_DATEPLUS1 = vS_DATEPLUS1;
+		USER_ENP = uSER_ENP;
+		USER_PERSON_SURNAME = uSER_PERSON_SURNAME;
+		USER_PERSON_KINDFIRSTNAME = uSER_PERSON_KINDFIRSTNAME;
+		USER_PERSON_KINDLASTNAME = uSER_PERSON_KINDLASTNAME;
+		USER_SMO = uSER_SMO;
+		USER_D_12 = uSER_D_12;
+		USER_D_13 = uSER_D_13;
+		USER_OKATO_3 = uSER_OKATO_3;
+		USER_TYPE_POL = uSER_TYPE_POL;
+		USER_POL = uSER_POL;
+		RUSSIAN = rUSSIAN;
+		D_V = d_V;
+		D_SER = d_SER;
+		D_NUM = d_NUM;
+		PR_FAM = pR_FAM;
+		PR_IM = pR_IM;
+		PR_OT = pR_OT;
+		LAST_FAM = lAST_FAM;
+		LAST_IM = lAST_IM;
+		LAST_OT = lAST_OT;
+		LAST_DR = lAST_DR;
+		PFR_SNILS = pFR_SNILS;
+		PFR_ID = pFR_ID;
+		PFR_NOTID = pFR_NOTID;
+		USER_SERDOC = uSER_SERDOC;
+		USER_NUMDOC = uSER_NUMDOC;
+		USER_DOCID = uSER_DOCID;
+		USER_DOC_DATE = uSER_DOC_DATE;
+		D_12_PLUS1 = d_12_PLUS1;
+		Pid29 = pid29;
+		D1 = d1;
+
 	}
 	
 	public MessageCommon(int pERSON_SERDOC, int pERSON_NUMDOC,
@@ -1286,7 +1471,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 				{
 						
 						// пребразуем даты
-						if (i == 3 || i == 13 || i == 24 || i == 25 || i == 32 || i == 41 || i == 57 || i == 60 || i==59)
+						if (i == 3 || i == 13 || i == 24 || i == 25 || i == 32 || i == 41 || i == 57 || i == 60 || i==59 || i == 58)
 						{
 							dataListRow.add(new SimpleDateFormat("yyyy-MM-dd",java.util.Locale.ENGLISH).format(resultSet.getDate(i + 1)));
 						} else

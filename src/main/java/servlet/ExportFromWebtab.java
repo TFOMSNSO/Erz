@@ -85,7 +85,7 @@ private static final long serialVersionUID = 1L;
       // 3. Convert received JSON to Article
       ListWeb article = mapper.readValue(fg2, ListWeb.class);
        String user = article.getGouser();
-//       System.out.println("^^^^^^^^^^^b "+ user);
+       System.out.println("Export from webtab: "+ user);
       
       
       ArrayList<ArrayList<String>> ls = null;
@@ -396,7 +396,8 @@ private static final long serialVersionUID = 1L;
 							 
 						 }
 						 
-						 
+						 // f - запись с первого листа
+				         // d_d1 - d1 со второго листа для f, d_d2 - d2 со второго листа для f
 						 for (int j2 = 0; j2 < listWeb3.size(); j2++)
 					 	 {
 					 			f3= (ArrayList<String>)listWeb3.get(j2);
@@ -418,7 +419,7 @@ private static final long serialVersionUID = 1L;
 						 				f.set(8, parseStringDate(f3.get(10)) );
 						 			    // d13
 						 				DateFormat inputFormat = new SimpleDateFormat("dd.MM.YYYY");
-					 					if(kluch.contains("A08P02today")){Date now = new Date();	f.set(9,inputFormat.format(now));	}
+					 					if(kluch.contains("A08P02today")){Date now = new Date();	f.set(9,inputFormat.format(now));}
 						 					
 						 					if(kluch.contains("A08P02howINsmo"))
 						 					{
@@ -510,7 +511,11 @@ private static final long serialVersionUID = 1L;
 			 					 				f2m = (ArrayList<String>) listWeb1.get(0);
 			 					 				f2m.set(18, "CODEDOC");
 			 					 				f.set(18, f2.get(17));
-			 					 				 // d2
+			 					 				 // d1
+			 					 				f2m = (ArrayList<String>) listWeb1.get(0);
+			 					 				f2m.set(21, "D1");
+			 					 				f.set(21, f2.get(58));
+			 					 				// d2
 			 					 				f2m = (ArrayList<String>) listWeb1.get(0);
 			 					 				f2m.set(22, "D2");
 			 					 				f.set(22, f2.get(59));
@@ -884,7 +889,7 @@ private static final long serialVersionUID = 1L;
 		if(f.size()<=13)
 		{	
 				 f= (ArrayList<String>)listWeb1.get(0);
-				 f.add("PassDOC");f.add("NumDOC");f.add("DateDOC");f.add("BORN");f.add("GOVER");f.add("CODEDOC");f.add("SEX");f.add("BIRTHDAY");f.add("");f.add("D2");f.add("PID29");f.add("KATEG");
+				 f.add("PassDOC");f.add("NumDOC");f.add("DateDOC");f.add("BORN");f.add("GOVER");f.add("CODEDOC");f.add("SEX");f.add("BIRTHDAY");f.add("D1");f.add("D2");f.add("PID29");f.add("KATEG");
 				 
 				 
 				 // добовляем "шапку" в первую строку

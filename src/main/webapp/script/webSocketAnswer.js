@@ -6,14 +6,14 @@ var port = +location.port ? ':'+location.port: '';
 console.log('full:' + full);
 
 
-var ws = new WebSocket("ws://localhost"+port+"/wsAnswerNew"); // для тестирования
-// var ws = new WebSocket("ws://asu-srp"+port+"/ErzNsk/wsAnswerNew");
-
+// var ws = new WebSocket("ws://localhost"+port+"/wsAnswerNew"); // для тестирования
+var ws = new WebSocket("ws://asu-srp"+port+"/ErzNsk/wsAnswerNew");
+//
 
 //флаг открытли запрос
 var nowCount =0;
 var user;
-// данные для spinnera
+// данные для spinneraфывыфвфывфыв
 var opts = {
 		   lines: 13, // The number of lines to draw
 		   length: 25, // The length of each line

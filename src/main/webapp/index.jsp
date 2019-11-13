@@ -1783,56 +1783,47 @@ $(document).ready(function()
 								</div>
 
 								<div class="row">
-									<div class="col-lg-4">
+									<div class="col-md-4">
+										<h4 class="text-center">Запросы</h4>
 										<li>
-											<!-- 	<form id = "A08p03Create" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '3'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								 -->
 											<button class="btn btn-primary" id="menuindex"
-												title="Смена СМО со сменой страховки" value="A08P03">А08П03</button>
-											<!-- 	</form>	  -->
+													title="Запрос страховой принадлежности по ФИОД и УДЛ"
+													value="ZP1Fiod">ZP1Fiod</button>
 										</li>
 										<li>
-											<!-- 	<form id = "A08p16Create" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '116'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								 -->
 											<button class="btn btn-primary" id="menuindex"
-												title="Исправление данных, например ЕНП" value="A08P16">А08П16</button>
-											<!--  	</form> -->
+													title="Запрос страховой принадлежности по предыдущим ФИО"
+													value="ZP1pr">ZP1pr</button>
 										</li>
 										<li>
-											<!-- 	<form id = "A13p09Create" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '9'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								 -->
-											<button class="btn btn-primary" id="menuindex"
-												title="Отмена сообщения о смерти" value="A13P09">А13П09</button>
-											<!-- 	</form>	 -->
+											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonZP9" title="Запрос истории страховых принадлежностей" value="ZP9" data-toggle="modal" data-target="#modalZP9">ZP9</button>
 										</li>
-										<li>
-											<!-- 	<form id = "A08p03prCreate" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '3pr'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								 -->
-											<button class="btn btn-primary" id="menuindex"
-												title="Смена СМО со сменой страховки с предыдущими ФИО и ДР"
-												value="A08P03pr">А08П03pr</button> <!-- 	</form>  -->
-										</li>
-										<li>
-											
-											<button class="btn btn-primary" id="menuindex"
-												title="Смена данных УДЛ без смены страховки" value="A08P04">А08П04</button>
-											<!-- 		</form>  -->
-										</li>
-										<li>
-											
-											<button class="btn btn-primary" id="menuindex"
-												title="Объединение дубликатов общее" value="A24P10com">А24П10com</button>
-										
-										</li>
-										<li>
+
+										<div class="modal fade" id="modalZP9" role="dialog"
+											 aria-labelledby="myModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+																aria-hidden="true">&times;</button>
+														<h3 class="modal-title">Конструктор запроса ZP9</h3>
+														<p>Выбирите по какому условию вы хотите узнать страховую принадлежность </p>
+													</div>
+													<div class="modal-body">
+														<p></p>
+														<button type="button" id="ZP9enp"
+																class="btn btn-primary" value="0">ЕНП</button>
+														<button type="button" id="ZP9passport" class="btn btn-primary" value="0">Паспорт</button>
+														<button type="button" id="ZP9snils" class="btn btn-primary" value="0">Снилс</button>
+													</div>
+													<div class="modal-body">
+														<p>Для ЗЛ с другой территории:</p>
+														<button type="button" id="otherZP9passport" class="btn btn-primary" value="0">Енп +- Паспорт +- Снилс</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<%--<li>
 											
 											<button class="btn btn-primary" id="menuindex"
 												title="Начало передачи в ЦС ЕРЗ сведений о занятости застрахованных лиц"
@@ -1844,109 +1835,81 @@ $(document).ready(function()
 												title="Окончание передачи в ЦС ЕРЗ сведений о занятости застрахованных лиц"
 												value="P27">П27</button>
 
+										</li>--%>
+
+									</div>
+									<div class="col-md-4">
+										<h4 class="text-center">Сообщение</h4>
+										<li>
+											<button class="btn btn-primary" id="menuindex"
+													title="Смена СМО со сменой страховки" value="A08P03">А08П03</button>
 										</li>
 										<li>
-
 											<button class="btn btn-primary" id="menuindex"
-												title="Смена страховки без смены СМО"
-												value="A08P06_123">A08P06_123</button>
-
+													title="Смена СМО со сменой страховки с предыдущими ФИО и ДР"
+													value="A08P03pr">А08П03pr</button>
 										</li>
-									</div>
-									<div class="col-lg-4">
+										<li>
+											<button class="btn btn-primary" id="menuindex"
+													title="Проставить дату окончания иностранцу"
+													value="A08P03For">А08П03For</button>
+										</li>
+										<br>
 										<li>
 											<button class="btn btn-primary" id="menuindex"
 												title="Открытие страховки" value="A08P01">А08П01</button>
 										</li>
+										<br>
 										<li>
-                                            <!-- 	<form id = "A08p06Create" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '6'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								           -->
 											<button class="btn btn-primary" id="menuindex"
 												title="Смена страховки без смены СМО" value="A08P06">А08П06</button>
-											<!-- 	</form>	 -->
 										</li>
 										<li>
-											<!-- 	<form id = "A24p10Create" method = "post" action="message">
-										<input type = "hidden" name = "mestype" value = '110'>
-										<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-								            -->
 											<button class="btn btn-primary" id="menuindex"
-												title="Объединение дубликатов" value="A24P10">А24П10</button>
-											<!-- 	</form>  -->
+													title="Смена страховки без смены СМО"
+													value="A08P06_123">A08P06_123</button>
+										</li>
+										<br>
+										<li>
+											<button class="btn btn-primary" id="menuindex"
+													title="Исправление данных, например ЕНП"
+													value="A08P16">А08П16</button>
 										</li>
 										<li>
-											
 											<button class="btn btn-primary" id="menuindex"
-												title="Запрос страховой принадлежности по предыдущим ФИО"
-												value="ZP1pr">ZP1pr</button> 
+													title="Смена данных УДЛ без смены страховки"
+													value="A08P04">А08П04</button>
 										</li>
 										<li>
-											
 											<button class="btn btn-primary" id="menuindex"
-												title="Объединение дубликатов с другим главным ЕНП"
-												value="A24P102">А24П102</button>
+													title="Объединение дубликатов общее"
+													value="A24P10com">А24П10com</button>
 										</li>
 										<li>
-											
-										 	<button class="btn btn-primary" id="menuindex"
-												title="Запрос страховой принадлежности по ФИОД и УДЛ"
-												value="ZP1Fiod">ZP1Fiod</button> 
+											<button style="background-color: #4193ab;" type="button" id="A08P08"
+													title="Открытие страховки" class="btn btn-primary"
+													value="A08P08">А08П08</button>
 										</li>
 										<li>
-											<!-- 	<form id = "A08v01Create" method = "post" action="message">
-											<input type = "hidden" name = "mestype" value = '1v'>
-											<input type = "hidden" name = "username" value = '<c:out value="${sessionScope.username}" />'>
-									 -->
-											<button class="btn btn-primary" id="menuindex"
-												title="Изменение информации о застрахованном лице"
-												value="A08B01">А08B01</button> <!-- 	</form>  -->
+											<button id="A08P08pr" style="background-color: #4193ab;"
+													class="btn btn-primary"
+													title="Восстановление призывников">А08П08prizyv</button>
 										</li>
-                                        <li>
-                                            <div class="text-center">
-                                                <p></p>
-                                                <button class="btn btn-primary" id="menuindex"
-                                                        title="А08П02 для призывников(и иностранцев)"
-                                                        value="A08P02priz">A08P02priz</button>
-                                                <button id="A08P08pr" style="background-color: #4193ab; width: 200px;"
-                                                        class="btn btn-primary"
-                                                        value="A08P08">А08П08prizyv</button>
-												<button id="A03P07other" style="background-color: #4193ab; width: 200px;"
-														class="btn btn-primary"
-														value="A03P07other" title="A03П07 для людей с другой территории">А03П07other</button>
-                                            </div>
-                                        </li>
-
-				<%--						<li>
-
-											<button class="btn btn-primary" id="menuindex"
-													title="А08П02 для призывников(и иностранцев)"
-													value="A08P02priz">A08P02priz</button>
-										</li>
-                                        <li>
-                                            <button id="A08P08pr" style="background-color: #4193ab;" class="btn btn-primary" value="A08P08">А08П08prizyv</button>
-                                        </li>--%>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-md-4">
+										<h4 class="text-center">Открепление</h4>
+										<%--<li>
+											<button class="btn btn-primary" id="menuindex" title="Смена СМО со сменой страховки при коллизии" value="A08P03kol">А08П03kol</button> 
+										</li>--%>
+										<li>
+											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonZP3" title="Запрос списка подлежащих откреплению" value="ZP3">ZP3</button>
+										</li>
 										<li>
 											<button class="btn btn-primary" id="menuindex" title="Снятие с учета"  value="A08P02">А08П02</button>
-										</li>
-									</div>
-									<div class="col-lg-4">
-										<li>
-											<button class="btn btn-primary" id="menuindex" title="Смена СМО со сменой страховки при коллизии" value="A08P03kol">А08П03kol</button> 
-										</li>
-										<li>
-											<!-- <button class="btn btn-primary" id="menuindex" title="Сообщение о смерти" value="A03P07">А03П07</button> -->
-										</li>	
-										<li>
-											<button class="btn btn-primary" id="menuindex" title="Проставить дату окончания иностранцу" value="A08P03For">А08П03For</button> 
 										</li>
 										<li>
 											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonA08P02" title="Закрытие страховки, Открепить ЗЛ иностранца" value="A08P02test" data-toggle="modal" data-target="#modalA08P02">А08П02test</button>
 										</li>
-										
 										<div class="modal fade" id="modalA08P02" role="dialog"
 											aria-labelledby="myModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
@@ -1974,52 +1937,28 @@ $(document).ready(function()
 													</div>
 												</div>
 											</div>
-										</div>											
-										
+										</div>
 										<li>
-											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonZP9" title="Запрос истории страховых принадлежностей" value="ZP9" data-toggle="modal" data-target="#modalZP9">ZP9</button>
-										</li>
-										
-											<div class="modal fade" id="modalZP9" role="dialog"
-												aria-labelledby="myModalLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal"
-																aria-hidden="true">&times;</button>
-															<h3 class="modal-title">Конструктор запроса ZP9</h3>
-															<p>Выбирите по какому условию вы хотите узнать страховую принадлежность </p>
-														</div>
-														<div class="modal-body">
-															<p></p>
-															<button type="button" id="ZP9enp"
-																class="btn btn-primary" value="0">ЕНП</button>
-															<button type="button" id="ZP9passport" class="btn btn-primary" value="0">Паспорт</button>
-															<button type="button" id="ZP9snils" class="btn btn-primary" value="0">Снилс</button>
-														</div>
-														<div class="modal-body">
-															<p>Для ЗЛ с другой территории:</p>
-															<button type="button" id="otherZP9passport" class="btn btn-primary" value="0">Енп +- Паспорт +- Снилс</button>
-														</div>
-													</div>
-												</div>
-											</div>		
-										<li>
-										<!-- <button type="button" id="A08P14" class="btn btn-primary" value="A08P14">А08П14</button> -->
+											<button class="btn btn-primary" id="menuindex"
+													title="Открепление призывников"
+													value="A08P02priz">A08P02priz</button>
 										</li>
 										<li>
-											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonZP3" title="Запрос списка подлежащих откреплению" value="ZP3">ZP3</button>
+											<button style="background-color: #4193ab;" type="button" id="A03P07"
+													class="btn btn-primary" value="A03P07"
+													title="Сообщение о смерти">А03П07</button>
 										</li>
 										<li>
-										<button style="background-color: #4193ab;" type="button" id="A03P07" class="btn btn-primary" value="A03P07">А03П07</button>
+											<button id="A03P07other" style="background-color: #4193ab;"
+													class="btn btn-primary"
+													value="A03P07other"
+													title="Сообщение о смерти ЗЛ с другой территории">А03П07other</button>
 										</li>
-
 										<li>
-										<button style="background-color: #4193ab;" type="button" id="A08P08" class="btn btn-primary" value="A08P08">А08П08</button>
+											<button class="btn btn-primary" id="menuindex"
+													title="Отмена сообщения о смерти" value="A13P09">А13П09</button>
 										</li>
-										<li>
-											<!-- <button  class="btn btn-primary" id="ZP1Ajax"	value="ZP1Ajax">ZP1test</button> -->
-										</li>
+										<h4 class="text-center">Классика жанра</h4>
 										<li>
 											<button style="background-color: #4193ab;" class="btn btn-primary" id="buttonZP1"  data-toggle="modal" data-target="#modalZP1beta">ZP1beta</button>
 										</li>
@@ -2095,7 +2034,7 @@ $(document).ready(function()
 								<button class="btn btn-primary" id="drugiezaprosi" data-toggle="modal" data-target="#myModal1">Запрос ЕНП-внеш -> Енп-вн</button>
 								<button class="btn btn-primary" id="drugiezaprosi"
 									data-toggle="modal" data-target="#myModal2">Исправление внеш ЕНП</button>
-									<button class="btn btn-primary" id="drugiezaprosi" data-toggle="modal" data-target="#myModal3">Сгенерировать ЕНП</button>
+									<%--<button class="btn btn-primary" id="drugiezaprosi" data-toggle="modal" data-target="#myModal3">Сгенерировать ЕНП</button>--%>
 									<button class="btn btn-primary" id="taskP03">Задание П03</button>
 									<button class="btn btn-primary" id="taskP02">Задание П02</button>
 									<button class="btn btn-primary" id="taskP04">Задание П04</button>

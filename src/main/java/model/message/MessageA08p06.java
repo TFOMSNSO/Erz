@@ -121,7 +121,7 @@ public class MessageA08p06 extends MessageCommon {
 			in1_2.addContent(new Element("IN1.12", namespace).addContent(dataList.get(i).get(VS_DATEPLUS1)));
 
 
-			in1_2.addContent(new Element("IN1.13", namespace).addContent(dataList.get(i).get(70)));
+			in1_2.addContent(new Element("IN1.13", namespace).addContent(dataList.get(i).get(RUSSIAN).trim().toUpperCase().equals("RUS") ? "" : dataList.get(i).get(70)) );
 
 			in1_2.addContent(new Element("IN1.15", namespace).addContent("50000"));
 
