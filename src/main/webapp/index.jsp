@@ -534,22 +534,29 @@ $(document).ready(function()
 	        	             */  
 	        	             var id;
 	        	             var datatargetm;
-	        	             $('#A08P02today,#A08P02howINsmo,#A08P02howINsmoPID29,#buttonA08P02,#A08P02akaZP3').click(function (idtoplevel)
+	        	             $('#A08P02today,#A08P02howINsmo,#A08P02howINsmoPID29,#buttonA08P02,#A08P02akaZP3,#A08P02prizyvOther').click(function (idtoplevel)
 			        	     {	
 	        	            	 // ловим id нажатой кнопки
     	            	 		 var ids = $(this).attr("id");
+    	            	 		 console.log("PRESS:" + ids)
     	            	 		 // если кнопка первого уровня то ( с нажатой кнопки  с меню запросы ффомс)
     	            	 		 if('buttonA08P02' === ids) {	id = ids; datatargetm = $(this).attr("data-target");  console.log('jkj '+id+'  '+ datatargetm);	}
     	            	 		 
     	            	 		//если кнопка второго уровня то 		 
- 	        	            	if( 'A08P02today' === ids || 'A08P02howINsmo' === ids || 'A08P02howINsmoPID29' === ids || 'A08P02akaZP3' == ids)
+ 	        	            	if( 'A08P02today' === ids || 'A08P02howINsmo' === ids || 'A08P02howINsmoPID29' === ids || 'A08P02akaZP3' == ids
+									|| 'A08P02prizyvOther' === ids)
  		        	            {
  	        	            		var flag = 0;
+ 	        	            		if(ids == 'A08P02prizyvOther')
+									{
+									    id = ids;
+									}
 		        	            	 $(""+datatargetm).modal('hide');
 		        	 				 $('#modalfoms').modal('hide');
 		        	 				 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
        	            	 		     if ($('.panel#tableexcel').is(':visible')) 
 	        	            	 	 {
+	        	            	 	     console.log("ids===" + ids);
        	            	 		    	var hotInstance	 = $('#list1onsc').handsontable('getInstance');
         	            	 			var hotInstance2 = $('#list2onsc').handsontable('getInstance');
         	            	 			var hotInstance3 = $('#list3onsc').handsontable('getInstance'); 
@@ -568,6 +575,7 @@ $(document).ready(function()
  		        				         if('A08P02howINsmo' === ids){ var gouser = "zapros=A08P02howINsmo";	var myDatap02 = { list1:hotInstance.getData(0,0,e1-1,wd1-1), list2:hotInstance2.getData(0,0,e2-1,wd2-1), list3:hotInstance3.getData(0,0,e3-1,wd3-1), gouser	} }
  		        				         if('A08P02howINsmoPID29' === ids){ var gouser = "zapros=A08P02howINsmoPID29";	var myDatap02 = { list1:hotInstance.getData(0,0,e1-1,wd1-1), list2:hotInstance2.getData(0,0,e2-1,wd2-1), list3:hotInstance3.getData(0,0,e3-1,wd3-1), gouser	} }
  		        				         if('A08P02akaZP3' === ids){ var gouser = "zapros=A08P02akaZP3";	var myDatap02 = { list1:hotInstance.getData(0,0,e1-1,wd1-1), list2:hotInstance2.getData(0,0,e2-1,wd2-1), list3:hotInstance3.getData(0,0,e3-1,wd3-1), gouser	} }
+ 		        				         if('A08P02prizyvOther' === ids){ var gouser = "zapros=A08P02prizyvOther";	var myDatap02 = { list1:hotInstance.getData(0,0,e1-1,wd1-1), list2:hotInstance2.getData(0,0,e2-1,wd2-1), list3:hotInstance3.getData(0,0,e3-1,wd3-1), gouser	} }
 
  		        				         console.log(JSON.stringify(myDatap02));
  		        				         
@@ -634,6 +642,10 @@ $(document).ready(function()
 										  {
 	        				          		var myData = { list1:inst1Lista.getData(1,3,e1-1,wd1-1)}
 										  }
+										  if(vl == 'A08P02prizyvOther') {
+                                              var myData = { list1:inst1Lista.getData(1,0,e1-1,wd1-1)}
+                                          }
+
 		        				          var r = JSON.stringify(myData);
 		        				          // передаем в вебсокет даные с первого листа
 		        				          searchInDirectory(r);
@@ -928,14 +940,7 @@ $(document).ready(function()
 											let hotInstan1 = $('#list1onsc').handsontable('getInstance');
 											let e1 =hotInstan1.countRows()-hotInstan1.countEmptyRows(true);
 											let wd1 = hotInstan1.countCols()-hotInstan1.countEmptyCols(true);
-/*
-											let hotInstance2 = $('#list2onsc').handsontable('getInstance');
-											let e2 =hotInstance2.countRows()-hotInstance2.countEmptyRows(true);
-											let wd2 = hotInstance2.countCols()-hotInstance2.countEmptyCols(true);
 
-											let hotInstance3 = $('#list3onsc').handsontable('getInstance');
-											let e3 =hotInstance3.countRows()-hotInstance3.countEmptyRows(true);
-											let wd3 = hotInstance3.countCols()-hotInstance3.countEmptyCols(true);*/
 
 											let myData = { A03P07other:hotInstan1.getData(1,0,e1-1,9)};
 
@@ -1507,7 +1512,6 @@ $('#ZP1FIODtable').click(function ()
              var myData = { ZP1FIODtable:hotInstan1.getData(1,0,e1-1,8)}
              // преобразуем в json (не обязательно)
              var r = JSON.stringify(myData);
-             console.log('r:' + r);
              // отправляем по сокету
              searchInDirectory(r);
   	     });
@@ -1707,7 +1711,7 @@ $(document).ready(function()
 
 </head>
 <body>
-<video id="bgindex" src="image/parish.mp4" autoplay="true" loop="true" muted="true" style="width:100%; position: absolute;"></video>
+<%--<video id="bgindex" src="image/parish.mp4" autoplay="true" loop="true" muted="true" style="width:100%; position: absolute;"></video>--%>
 
 	<div class="conteinerHeader">
 		<!-- Заставка -->
@@ -1934,6 +1938,9 @@ $(document).ready(function()
 															<li>
 																<button type="button" id="A08P02akaZP3" style="margin-bottom:7px;" class="btn btn-primary" title="Закрыть ZP3 -> A08П02" value="0">З_ZP3_A08П02</button>
 															</li>
+															<li>
+																<button type="button" id="A08P02prizyvOther" style="margin-bottom:7px;" class="btn btn-primary" title="A08 P02 for other prizyv" value="A08P02prizyvOther">A08П02 призыв др.</button>
+															</li>
 													</div>
 												</div>
 											</div>
@@ -1977,7 +1984,7 @@ $(document).ready(function()
 														<p></p>
 														<button  class="btn btn-primary" id="ZP1taskA8P4" title="Zp1 по паспорту,фио,др,полу,и месту рождения. Позволяет достоверно оценить наличие паспорта в ЦС "value="Zp1taskA8P4">ZP1 FioDPb</button>
 														<button  class="btn btn-primary" id="ZP1Ajax"	value="ZP1Ajax">ZP1</button>
-														<button  class="btn btn-primary" id="ZP1FIODtable"	value="ZP1FIODtable">-->ZP1fiod<--</button>
+														<button  class="btn btn-primary" id="ZP1FIODtable"	value="ZP1FIODtable"  title="фиод, пол, серия(12 34), номер (123456), тип(14-пасспорт), () ">ZP1fiod</button>
 
 													</div>
 												</div>

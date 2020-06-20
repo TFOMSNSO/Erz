@@ -70,8 +70,9 @@
 .btn#A08P02howINsmo,
 .btn#A08P02howINsmoPID29,
 .btn#A08P02akaZP3,
+.btn#A08P02prizyvOther,
 .btn#A08P02today,
-.btn#menuindex,.btn#menuindexws,.btn#menuindexwsYN,.btn#drugiezaprosi,#taskP03,#taskP02,#buttonZP9,#taskP04,#taskP06,#buttonZP3,#ZP1Ajax,#buttonA08P02,#processErrorGZ,#ZP1taskA8P4,#buttonZP1,#A08P14,#A03P07,#A08P08,#taskGz,#taskGenEnp,#A08P08pr,#A03P07other{
+.btn#menuindex,.btn#menuindexws,.btn#menuindexwsYN,.btn#drugiezaprosi,#taskP03,#taskP02,#buttonZP9,#taskP04,#taskP06,#buttonZP3,#ZP1Ajax,#ZP1FIODtable, #buttonA08P02,#processErrorGZ,#ZP1taskA8P4,#buttonZP1,#A08P14,#A03P07,#A08P08,#taskGz,#taskGenEnp,#A08P08pr,#A03P07other{
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -93,7 +94,9 @@
 .btn#A08P02howINsmo:hover,
 .btn#A08P02howINsmoPID29:hover,
 .btn#A08P02akaZP3:hover,
+.btn#A08P02prizyvOther:hover,
 .btn#A08P02today:hover,
+.btn#ZP1FIODtable
 .btn#menuindex:hover,.btn#menuindexws:hover,.btn#menuindexwsYN:hover,.btn#drugiezaprosi:hover,#taskP03:hover,#taskP06:hover,#taskP02:hover,#buttonZP9:hover,#buttonZP3:hover,#ZP1Ajax:hover,#buttonA08P02:hover,#processErrorGZ:hover,#taskP04:hover,#ZP1taskA8P4:hover,#buttonZP1:hover,#A08P14:hover,#A03P07:hover,#A08P08:hover,#taskGz:hover,#taskGenEnp:hover{
 	background-color: #088A68;
 }

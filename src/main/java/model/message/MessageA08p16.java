@@ -175,6 +175,7 @@ public class MessageA08p16 extends MessageCommon {
 			in1_1.addContent(new Element("IN1.43", namespace).addContent(dataList.get(i).get(PERSON_SEX)));
 			
 			Element in1_1_49 = new Element("IN1.49", namespace);
+
 			in1_1.addContent(in1_1_49);
 			in1_1_49.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(ENP_1)));
 			Element in1_1_49cx4 = new Element("CX.4", namespace);
@@ -189,7 +190,14 @@ public class MessageA08p16 extends MessageCommon {
 			seria = dataList.get(i).get(USER_SERDOC);
 			in1_2_49.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " ¹ ") + dataList.get(i).get(USER_NUMDOC)));
 			in1_2_49.addContent(new Element("CX.5", namespace).addContent(dataList.get(i).get(USER_DOCID)));
-	
+
+			if(dataList.get(i).get(SNILS)!= null && !dataList.get(i).get(SNILS).trim().isEmpty()) {
+				Element in1_3_49 = new Element("IN1.49", namespace);
+				in1_3_49.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(SNILS)));
+				in1_3_49.addContent(new Element("CX.5", namespace).addContent("PEN"));
+				in1_1.addContent(in1_3_49);
+			}
+
 			in1_1.addContent(new Element("IN1.52", namespace).addContent(dataList.get(i).get(BORN)));
 					
 			listGuid(guidMsh, i, "116");

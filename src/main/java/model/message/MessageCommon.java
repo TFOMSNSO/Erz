@@ -20,6 +20,8 @@ import java.util.Date;
 import oracle.ConnectionPoolOracle;
 import oracle.TaskOracle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -33,7 +35,8 @@ import util.ConstantiNastrojki;
 
 
 public abstract class MessageCommon implements Message, MessagePrizyvOnly{
-	
+	private static final Log log = LogFactory.getLog(MessageCommon.class);
+
 	int PERSON_SERDOC = 0, PERSON_NUMDOC = 1, PERSON_DOCPERSONID = 2, PERSON_SURNAME = 3, PERSON_KINDFIRSTNAME = 4,
 			PERSON_KINDLASTNAME = 5, PERSON_BIRTHDAY = 6, PERSON_SEX = 7, PERSON_LINKSMOESTABLISHMENTID = 8, ENP = 9, PERSON_ADDRESSID = 10,
 			PERSON_DATEINPUT = 11, SNILS = 12, BORN = 13, DATEPASSPORT = 14, ENP_PA = 15, VS_NUM = 16, VS_DATE = 17, ZAD = 18, D2 = 19, SMO = 20,
@@ -88,6 +91,8 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		long before = System.currentTimeMillis();
 		
 		prepareData(userMachine);
+		log.info("Prepared data size: " + dataList.size());
+
 		int count = dataList.size();
 		if(count < 10) { personEnpGuid.clear(); personEnpOutput.clear(); }
 	
@@ -216,7 +221,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		 * создаем сам запрос
 		 * Бежим по коллекции (снятые данные из сложного запроса)
 		 */
-		createMiddle(count, namespace, rootElement, curDate,true,"");
+		createMiddle(count, namespace, rootElement, curDate,true,"prizyv");
 
 
 		rememberGuid();
@@ -400,7 +405,6 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		String seria = dataList.get(i).get(PERSON_SERDOC);
 		pid3_1.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " № ") + dataList.get(i).get(PERSON_NUMDOC)));
 		pid3_1.addContent(new Element("CX.5", namespace).addContent(dataList.get(i).get(PERSON_DOCPERSONID)));
-		//pid3_1.addContent(new Element("CX.5", namespace).addContent("9"));
 		pid3_1.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
 		pid3_1.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 
@@ -417,9 +421,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 			}
 			pid3_2.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
 			pid3_2.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
-		}
-
-		if (dataList.get(i).get(PERSON_DOCPERSONID).equals("21")) {
+		}else if (dataList.get(i).get(PERSON_DOCPERSONID).equals("21")) {
 			Element pid3_5 = new Element("PID.3", namespace);
 			pid.addContent(pid3_5);
 			pid3_5.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " № ") + dataList.get(i).get(PERSON_NUMDOC)));
@@ -446,16 +448,33 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 
 
 			pid3_5.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
+		}else if(dataList.get(i).get(RUSSIAN).equals("Б/Г")
+				&& !dataList.get(i).get(PERSON_DOCPERSONID).equals("3")
+				&& !dataList.get(i).get(PERSON_DOCPERSONID).equals("14")) {
+			Element pid3_11 = new Element("PID.3", namespace);
+			pid.addContent(pid3_11);
+
+			pid3_11.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " № ") + dataList.get(i).get(PERSON_NUMDOC)));
+			pid3_11.addContent(new Element("CX.5", namespace).addContent("23"));
+			pid3_11.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
+			pid3_11.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 		}
+
+
+
+
+
 		try {
-			if (!"".equals(dataList.get(i).get(SNILS))) {
+			System.out.println("Trying to set snils");
+			if (!"".equals(dataList.get(i).get(SNILS)) && dataList.get(i).get(SNILS).length() < 14) {
 				Element pid3_3 = new Element("PID.3", namespace);
 				pid.addContent(pid3_3);
+				System.out.println("setting snils:" + dataList.get(i).get(SNILS));
 				pid3_3.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(SNILS)));
 				pid3_3.addContent(new Element("CX.5", namespace).addContent("PEN"));
 			}
 		}catch (IndexOutOfBoundsException | NullPointerException e){
-
+			System.out.println("Setting snils error, dataList:" + dataList.get(i) + "\nCNILS:" + SNILS);
 		}
 
 
@@ -495,7 +514,7 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 
 		Element pid26 = new Element("PID.26", namespace);
 		String rus = dataList.get(i).get(RUSSIAN);
-		if(rus.equals("Б/Г") || rus.equals("БГ") || rus.equals("")){
+		if(rus.equals("")){
 			rus = "RUS";
 		}
 		pid.addContent(pid26);
@@ -510,8 +529,6 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 		 **/
 		
 		KATEG = dataList.get(0).get(0).equals("PERSON_SERDOC") ? 69 : 21;
-//		System.out.println("KATEG:" + dataList.get(i).get(KATEG));
-//		System.out.println("rus:" + dataList.get(i).get(RUSSIAN));
 		if(! dataList.get(i).get(RUSSIAN).equals("RUS")){
 			if(dataList.get(i).get(KATEG).equals("5") || dataList.get(i).get(KATEG).equals("10")){
 				Element pid26_2 = new Element("PID.26", namespace);
@@ -602,7 +619,6 @@ public abstract class MessageCommon implements Message, MessagePrizyvOnly{
 					}
 					else {
 						prepareData(userMachine,listList1);
-//						System.exit(1);
 					}
 				}
 			}

@@ -145,7 +145,6 @@ protected void createMiddle(int count, Namespace namespace,	Element rootElement,
 @Override
 protected void createMiddle(int count, Namespace namespace,
 		Element rootElement, String curDate, boolean tt, String kluch) {
-	System.out.println("zp1 fiodcreateMiddle(count,namespace,rootElement,curDate,tt,klush)");
 	for(int i =0; i < count; i++){
 		Element qbp_zp1 = new Element("QBP_ZP1", namespace);
 		rootElement.addContent(qbp_zp1);

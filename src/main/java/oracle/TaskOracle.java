@@ -1,5 +1,9 @@
 package oracle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import task.Task;
+
 import javax.servlet.jsp.jstl.sql.Result;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,6 +17,7 @@ import java.util.List;
 //import java.sql.*;
 
 public class TaskOracle extends ConnectOracle {
+	private static final Log log = LogFactory.getLog(TaskOracle.class);
 
 	public void deleteOldTask(Statement statement, String username) throws SQLException {
 		statement.executeQuery("delete from xml_task where username = '"+username+"'");
@@ -30,7 +35,8 @@ public class TaskOracle extends ConnectOracle {
 			} catch (SQLException e) {
 				System.out.println("Oracle Error when adding ");
 				System.out.println("1 - ENP as not String");
-				System.out.println("2 - Date format is wrong");				
+				System.out.println("2 - Date format is wrong");
+				log.error("Insert into xml_task error! user:" + username + ", enp:" + enp);
 				e.printStackTrace();
 			}
 	}
@@ -76,7 +82,7 @@ public class TaskOracle extends ConnectOracle {
 				" where  xt.username = '"+username+"'  order by p.enp ");*/
 
 
-		ResultSet resultSet = statement.executeQuery("select p.person_serdoc, p.person_numdoc,  \n" +
+		ResultSet resultSet = statement.executeQuery("select distinct p.person_serdoc, p.person_numdoc,  \n" +
 				"nvl((select ffoms_id from developer.docffoms d where d.docperson_id = p.person_docpersonid ), 18) person_docpersonid,  p.person_surname,  p.person_kindfirstname,  \n" +
 				"rtrim(case when ((p.person_kindlastname = 'мер') or (p.person_kindlastname = '-')) then null else rtrim(p.person_kindlastname,'-') end,'-') person_kindlastname  , \n" +
 				"p.person_birthday, p.person_sex + 1 person_sex,  p.person_linksmoestablishmentid, p.enp, p.person_addressid, p.person_dateinput,\n" +
@@ -206,14 +212,19 @@ public class TaskOracle extends ConnectOracle {
 		
 	public ResultSet selectDataForZPAjaxQukly2(Statement statement, String username, ArrayList<String> enpForZp1) throws SQLException {
 		StringBuilder sqlStr = new StringBuilder();
+		System.out.println("preparing data:" + enpForZp1.size());
 		for(int i=0;i<enpForZp1.size();i++)
 		{
 	    	sqlStr.append("select * from person p left join personadd pa on p.person_addressid = pa.personadd_addressid where p.enp='").append(enpForZp1.get(i).trim()).append("' union select * from person p left join personadd pa on p.person_addressid = pa.personadd_addressid where pa.enp='").append(enpForZp1.get(i).trim()).append("' union ");
 	    }
-    	String query = sqlStr.toString();
+		System.out.println("Preparred sql string");
+
+		String query = sqlStr.toString();
     	query = query.substring(0, query.length()-6);
-    	//System.out.println("selectDataForZPAjaxQukly2 "+query);
+		System.out.println("Executing");
 		ResultSet resultSet = statement.executeQuery(query);
+		System.out.println("Prepare data execute ok");
+
 		return resultSet;
 	}
 		

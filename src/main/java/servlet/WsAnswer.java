@@ -21,6 +21,8 @@ import loadparse.Load;
 import loadparse.ZpLoadMock;
 import model.message.*;
 import model.other.ListWebForXMLQuery;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.mapping.Array;
 import services.Services;
 
@@ -44,7 +46,7 @@ import util.UtilParseDbXml;
 
 public class WsAnswer extends WebSocketServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Log log = LogFactory.getLog(WsAnswer.class);
 
 	@Override
 	protected StreamInbound createWebSocketInbound(String arg0,HttpServletRequest request) {
@@ -115,6 +117,12 @@ public class WsAnswer extends WebSocketServlet {
 				}else if(arg0.toString().startsWith("{\"A03P07other")){
 					listKluchi.add(arg0.toString());
 					System.out.println("a03p07other 2 part");
+				}else if(arg0.toString().equals("A08P02prizyvOther")){
+					listKluchi.add(arg0.toString());
+					System.out.println("A08P02prizyvOther 1 part");
+				}else if(arg0.toString().startsWith("{\"A08P02prizyvOther")){
+					listKluchi.add(arg0.toString());
+					System.out.println("A08P02prizyvOther 2 part");
 				}else if(arg0.toString().equals("ZP1FIODtable")){
 					listKluchi.add(arg0.toString());
 					System.out.print("ZP1FIODtable 1 part");
@@ -377,6 +385,7 @@ public class WsAnswer extends WebSocketServlet {
 
 			try {
 				if (task.add(userMachine)) {
+					log.info("Adding task for " + userMachine + " success!");
 					if (messageZp1.create(userMachine)) {
 						new AnswerData().loadToExcel(messageZp1.getDataList(),userMachine + ".xls");
 						String file = "50000-" + messageZp1.getGuidBhs() + ".uprmes";
@@ -537,7 +546,6 @@ public class WsAnswer extends WebSocketServlet {
 			 */
 			if (messageZp1.create(userMachine,stList,kl))
 			{
-//			    System.out.println("create ok");
 				String file = "50000-" + messageZp1.getGuidBhs()+ ".uprmes";
 				String fileUpr2 = "50000-" + messageZp1.getGuidBhs();
 				String sentMessages = "";
@@ -700,6 +708,16 @@ public class WsAnswer extends WebSocketServlet {
 				messageforallquery2(message,myoutbound,l,vidZaprosa);
         	}
 
+			if(vidZaprosa.equals("A08P02prizyvOther")){
+				System.out.println("json:" + jsonString);
+				Message message = new MessageA08p02prizOther();
+
+				ArrayList<ArrayList<String>> l = parseStringFromList1(jsonString.replace("A08P02prizyvOther","list1"));
+
+				System.out.println("parsed A08P02prizyvOther:" + l);
+				messageforallquery2(message,myoutbound,l,vidZaprosa);
+        	}
+
         	if(vidZaprosa.toString().equals("A08P08"))
 			{
 				System.out.println("Catch A08P08");
@@ -810,7 +828,7 @@ public class WsAnswer extends WebSocketServlet {
 						message.setSNILS(3);
 						jsonString = jsonString.replaceAll("list1otherzp9","list1");
 						list = parseStringFromList1(jsonString);
-
+						System.out.println("dataList size:" + list.size());
 						messageforallquery2(message,myoutbound,list,"otherzp9");
 					}
 
@@ -824,8 +842,9 @@ public class WsAnswer extends WebSocketServlet {
 
             			list = parseStringFromList1(jsonString);
 
+						System.out.println("dataList size:" + list.size());
 
-            			Message messageZP9enp = new MessageZp9(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, sMO, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
+						Message messageZP9enp = new MessageZp9(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, sMO, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
             			messageforallquery2(messageZP9enp,myoutbound,list,"list1enpzp9");
         			}
 

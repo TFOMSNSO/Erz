@@ -100,13 +100,6 @@ public class MessageA08p02 extends MessageCommon{
 
 			Element pv1 = new Element("PV1", namespace);
 			pv1.addContent(new Element("PV1.2", namespace).addContent("1"));
-/*			String rus =  dataList.get(i).get(RUSSIAN);
-			if(!rus.equals("RUS")){
-				pv1.addContent(new Element("PV1.36",namespace).addContent("7"));
-			}
-
-			System.out.println("rus:" + rus);*/
-
 
 			adt_a01.addContent(pv1);
 				
@@ -232,7 +225,9 @@ public class MessageA08p02 extends MessageCommon{
 			String rus =  dataList.get(i).get(RUSSIAN);
 			if(!rus.equals("RUS")){
 				pv1.addContent(new Element("PV1.36",namespace).addContent("7"));
-			}
+			}else if(kluch.equals("prizyv")){
+                pv1.addContent(new Element("PV1.36",namespace).addContent("7"));
+            }
 
 
 

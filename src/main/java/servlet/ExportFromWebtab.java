@@ -102,6 +102,8 @@ private static final long serialVersionUID = 1L;
           		  break;
 	      case "zapros=A08P02akaZP3":                                      ls = processing_afterZP3(request, article.getList1(),article.getList2(),article.getList3(),article.getGouser()); inf = sonar_(ls);
   		  		  break;
+  		  case "zapros=A08P02prizyvOther":   addHead(article.getList1());  ls = processingPrizyvOther(article.getList1(),article.getList2(),article.getList3(),"A08P02today"); inf = sonar_(ls);
+  		  		  break;
 	      
 	      }
       } catch ( Exception e) {
@@ -356,8 +358,115 @@ private static final long serialVersionUID = 1L;
 	 
 	 return list;
  }
- 
- private ArrayList<ArrayList<String>> processing(List listWeb1,List listWeb2,List listWeb3,String kluch) throws Exception 
+
+	private ArrayList<ArrayList<String>> processingPrizyvOther(List listWeb1,List listWeb2,List listWeb3,String kluch) throws Exception
+	{
+		ResultSet rs = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		DataSource dataSource = ConnectionPoolOracle.getConnectionDataSource();
+		ConnectionPoolOracle.printStatus();
+		conn = dataSource.getConnection();
+		ConnectionPoolOracle.printStatus();
+
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+		ArrayList<String> f3,f2,f2m;
+
+		list.add(headersZp1());
+			try{
+			// вычисляем внутреннее енп, где при одном номере гуид в ответе zp1 пришло два или более главных енп (т.е. внешних enp_1)
+//			ArrayList<String> badInsideEnp = uniqueGUID(listWeb3);
+
+
+			for (int i2 = 0; i2 < listWeb2.size(); i2++)
+			{
+				ArrayList<String> f= (ArrayList<String>)listWeb2.get(i2);
+				//if(i2 > 0)	chancheNUL(f);
+
+//				if(!badInsideEnp.contains(f.get(0).trim()))
+				{
+					// f - запись с первого листа
+					// d_d1 - d1 со второго листа для f, d_d2 - d2 со второго листа для f
+					for (int j2 = 0; j2 < listWeb3.size(); j2++)
+					{
+						f3= (ArrayList<String>)listWeb3.get(j2);
+
+						// енп вн, д13 или (d_d2 пусто и d13 > сегодня), окато,npp,  (нет -проверка соответствия № бланка (POL) из на БД)
+						if(f.get(9).trim().equalsIgnoreCase(f3.get(0).trim()) &&  f3.get(6).trim().equals("")
+								&& f3.get(1).equals(f3.get(2)))
+						{
+							// делаем проверку через запрос в базу
+//							if(	fun(f3.get(0).trim(),f3.get(6).trim(),stmt,rs,conn)== 0	)
+							{
+								f.add(f3.get(1));
+								// д12
+								f.add(f3.get(5));
+//								f.set(8, parseStringDate(f3.get(5)));
+								// d13
+								DateFormat inputFormat = new SimpleDateFormat("dd.MM.YYYY");
+//								if(kluch.contains("A08P02today"))
+								{
+									Date now = new Date();	f.add(inputFormat.format(now));
+								}
+								// смо
+								f.add(f3.get(4).trim());
+								// тип полиса
+								f.add(f3.get(8).trim());
+								//	№ полиса
+								f.add(f3.get(9).trim());
+							}
+						}
+
+					}
+/*					// j2>0 (пропускаем шапку)
+					if(i2 > 0 && f.get(10).equals("") && !f.get(0).contains("A08") && !f.get(7).equals("ЕНП не прошло проверку на LINKSMO <= 0") ){
+						f.set(6, "Или нет ответа ZP1 или  при npp =0 ( окато НЕ равен 50000 или d13 проставлено для гр РФ ) или d13 иностранца ДО сегодняшней даты ");
+					}*/
+				} //else{	if(i2 > 0){	f.set(6,"в ответе два главных ЕНП");	}}
+
+				list.add(f);
+			}
+
+		}
+		finally
+		{
+			if (stmt != null) {  stmt.close();  }
+			if (conn != null)
+			{
+				conn.close();
+//         System.out.println("After finaly. Idle pool.");
+			}
+		}
+		ConnectionPoolOracle.printStatus();
+
+		return list;
+	}
+
+	private ArrayList<String> headersZp1() {
+  		ArrayList<String> header = new ArrayList<>();
+
+  		header.add("FAM");
+  		header.add("IM");
+  		header.add("OT");
+  		header.add("DR");
+  		header.add("SEX");
+  		header.add("SERDOC");
+  		header.add("NUMDOC");
+  		header.add("TYPEDOC");
+  		header.add("");
+  		header.add("GD");
+  		header.add("ENP");
+  		header.add("D12");
+  		header.add("D13");
+  		header.add("SMO");
+  		header.add("TYPEPOL");
+  		header.add("NUMPOLIS");
+
+  		return header;
+	}
+
+
+	private ArrayList<ArrayList<String>> processing(List listWeb1,List listWeb2,List listWeb3,String kluch) throws Exception
  {
 	 ResultSet rs = null;
      Connection conn = null;

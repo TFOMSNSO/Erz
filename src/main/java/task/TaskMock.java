@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import oracle.ConnectionPoolOracle;
 import oracle.TaskOracle;
 import excel.ExcelTaskMock;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class TaskMock implements Task {
-
+	private static final Log log = LogFactory.getLog(TaskMock.class);
 	@Override
 	public boolean add(String username) throws Exception {
 		Statement statement = null;
@@ -30,6 +32,7 @@ public class TaskMock implements Task {
 			}*/
 			// бежим по количеству строк
 			//вставляем данные в таблицу xml_task
+			log.info("Parsed excel file. Data size:" + taskList.size());
 			long timeInsert0 = System.currentTimeMillis();
 			for (int i = 0; i < taskList.size(); i++)
 			{

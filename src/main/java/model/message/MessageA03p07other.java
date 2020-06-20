@@ -93,7 +93,8 @@ public class MessageA03p07other extends MessageCommon {
             pid5.addContent(new Element("XPN.1", namespace).addContent(new Element("FN.1", namespace).addContent(dataList.get(i).get(PERSON_SURNAME))));
             pid5.addContent(new Element("XPN.2", namespace).addContent(dataList.get(i).get(PERSON_KINDFIRSTNAME)));
 
-            if(dataList.get(i).get(PERSON_KINDLASTNAME).equals("-") || dataList.get(i).get(PERSON_KINDLASTNAME).equals("мер")){		pid5.addContent(new Element("XPN.3", namespace).addContent(""));	}
+            if(dataList.get(i).get(PERSON_KINDLASTNAME).equals("-") || dataList.get(i).get(PERSON_KINDLASTNAME).equals("мер")){
+                pid5.addContent(new Element("XPN.3", namespace).addContent(""));	}
             else
             {	pid5.addContent(new Element("XPN.3", namespace).addContent(dataList.get(i).get(PERSON_KINDLASTNAME)));	}
 
@@ -106,18 +107,6 @@ public class MessageA03p07other extends MessageCommon {
             pid.addContent(new Element("PID.29", namespace).addContent(dataList.get(i).get(PERSON_LINKSMOESTABLISHMENTID)));
             pid.addContent(new Element("PID.30", namespace).addContent("Y"));
 
-
-/*
-
-            if(Pid29 == 20) {
-                if(dataList.get(0).size() > 20) {
-                    if(!dataList.get(i).get(Pid29).equals("")) {
-                        pid.addContent(new Element("PID.29", namespace).addContent(dataList.get(i).get(Pid29)));
-                        pid.addContent(new Element("PID.30", namespace).addContent("Y"));
-                    }
-                }
-            }
-*/
 
             adt_a01.addContent(new Element("PV1", namespace).addContent(new Element("PV1.2", namespace).addContent("1")));
 
