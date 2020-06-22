@@ -34,7 +34,7 @@ import util.ConstantiNastrojki;
 
 
 
-public abstract class MessageCommon implements Message, MessagePrizyvOnly{
+public abstract class MessageCommon implements Message{
 	private static final Log log = LogFactory.getLog(MessageCommon.class);
 
 	int PERSON_SERDOC = 0, PERSON_NUMDOC = 1, PERSON_DOCPERSONID = 2, PERSON_SURNAME = 3, PERSON_KINDFIRSTNAME = 4,

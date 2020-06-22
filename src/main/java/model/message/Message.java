@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import help.RandomGUID;
 
-public interface Message extends MessagePrizyvOnly{
+public interface Message{
 	
 	public boolean create(String userMachine) throws IOException;
 	
@@ -46,4 +46,7 @@ public interface Message extends MessagePrizyvOnly{
 		throw new UnsupportedOperationException("operation not implemented");
 	}
 
+	default boolean createPrizyv(String userMachine) {
+		return false;
+	}
 }
