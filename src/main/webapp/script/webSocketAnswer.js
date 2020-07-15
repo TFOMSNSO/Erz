@@ -3,7 +3,7 @@ var full = 'ws://'+location.hostname+(location.port ? ':'+location.port: '') + '
 
 var port = +location.port ? ':'+location.port: '';
 
-var ws = new WebSocket("ws://asu-srp"+port+"/ErzNsk/wsAnswerNew"); // production
+var ws = new WebSocket("ws://localhost"+port+"/wsAnswerNew");
 //
 
 //флаг открытли запрос
