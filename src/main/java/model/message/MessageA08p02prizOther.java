@@ -106,82 +106,6 @@ public class MessageA08p02prizOther extends MessageCommon{
 //        pid3_1.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
 //        pid3_1.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 
-/*
-
-        if (dataList.get(i).get(PERSON_DOCPERSONID).equals("9")) {
-            Element pid3_2 = new Element("PID.3", namespace);
-            pid.addContent(pid3_2);
-            pid3_2.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " ¹ ") + dataList.get(i).get(PERSON_NUMDOC)));
-            if (!dataList.get(i).get(RUSSIAN).equals("RUS")) {
-                String kateg = dataList.get(i).get(dataList.get(0).get(0).equals("PERSON_SERDOC") ? 69 : 21).trim();
-                pid3_2.addContent(new Element("CX.5", namespace).addContent(kateg.equals("11") ? "29" : "23"));
-            } else {
-                pid3_2.addContent(new Element("CX.5", namespace).addContent("23"));
-            }
-            pid3_2.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
-            pid3_2.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
-        }else if (dataList.get(i).get(PERSON_DOCPERSONID).equals("21")) {
-            Element pid3_5 = new Element("PID.3", namespace);
-            pid.addContent(pid3_5);
-            pid3_5.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " ¹ ") + dataList.get(i).get(PERSON_NUMDOC)));
-            if (!dataList.get(i).get(RUSSIAN).equals("RUS")) {
-                String kateg = dataList.get(i).get(dataList.get(0).get(0).equals("PERSON_SERDOC") ? 69 : 21).trim();
-                pid3_5.addContent(new Element("CX.5", namespace).addContent(kateg.equals("11") ? "29" : "23"));
-            } else {
-                pid3_5.addContent(new Element("CX.5", namespace).addContent("23"));
-            }
-            String d2 = dataList.get(i).get(D2);
-            String d2minus3year ="";
-            if(!d2.equals("")) {
-                d2minus3year = String.valueOf(Integer.parseInt(d2.substring(0, 4)) - 3) + d2.substring(4);
-            }
-
-            String d1 = dataList.get(i).get(D1);
-            if(d1.length() > 10)
-                d1 = d1.substring(0, 10);
-	*/
-/*		if(dataList.get(i).size() == 72)
-				pid3_5.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(D1).substring(0,10)));
-			else
-	*//*
-			pid3_5.addContent(new Element("CX.7", namespace).addContent(d1));
-
-
-
-            pid3_5.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
-        }else if(dataList.get(i).get(RUSSIAN).equals("Á/Ã")
-                && !dataList.get(i).get(PERSON_DOCPERSONID).equals("3")
-                && !dataList.get(i).get(PERSON_DOCPERSONID).equals("14")) {
-            Element pid3_11 = new Element("PID.3", namespace);
-            pid.addContent(pid3_11);
-
-            pid3_11.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " ¹ ") + dataList.get(i).get(PERSON_NUMDOC)));
-            pid3_11.addContent(new Element("CX.5", namespace).addContent("23"));
-            pid3_11.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
-            pid3_11.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
-        }
-*/
-
-
-
-
-
-/*
-        try {
-            System.out.println("Trying to set snils");
-            if (!"".equals(dataList.get(i).get(SNILS)) && dataList.get(i).get(SNILS).length() < 14) {
-                Element pid3_3 = new Element("PID.3", namespace);
-                pid.addContent(pid3_3);
-                System.out.println("setting snils:" + dataList.get(i).get(SNILS));
-                pid3_3.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(SNILS)));
-                pid3_3.addContent(new Element("CX.5", namespace).addContent("PEN"));
-            }
-        }catch (IndexOutOfBoundsException | NullPointerException e){
-            System.out.println("Setting snils error, dataList:" + dataList.get(i) + "\nCNILS:" + SNILS);
-        }
-
-*/
-
 
         Element pid3_4 = new Element("PID.3", namespace);
         pid.addContent(pid3_4);
@@ -199,18 +123,19 @@ public class MessageA08p02prizOther extends MessageCommon{
                 .addContent(new Element("FN.1", namespace).addContent(dataList.get(i).get(PERSON_SURNAME))));
         pid5.addContent(new Element("XPN.2", namespace).addContent(dataList.get(i).get(PERSON_KINDFIRSTNAME)));
 
-        if(dataList.get(i).get(PERSON_KINDLASTNAME).equals("-") || dataList.get(i).get(PERSON_KINDLASTNAME).equals("ÍÅÒ")){		pid5.addContent(new Element("XPN.3", namespace).addContent(""));	}
+        if (dataList.get(i).get(PERSON_KINDLASTNAME).equals("-") || dataList.get(i).get(PERSON_KINDLASTNAME).equals("ÍÅÒ"))
+        {
+            pid5.addContent(new Element("XPN.3", namespace).addContent(""));
+        }
         else
-        {	pid5.addContent(new Element("XPN.3", namespace).addContent(dataList.get(i).get(PERSON_KINDLASTNAME)));	}
-
-
-        //pid5.addContent(new Element("XPN.3", namespace).addContent(dataList.get(i).get(PERSON_KINDLASTNAME)));
+        {
+            pid5.addContent(new Element("XPN.3", namespace).addContent(dataList.get(i).get(PERSON_KINDLASTNAME)));
+        }
 
         pid.addContent(new Element("PID.7", namespace).addContent(dataList.get(i).get(PERSON_BIRTHDAY)));
 
         pid.addContent(new Element("PID.8", namespace).addContent(dataList.get(i).get(PERSON_SEX)));
 
-//        pid.addContent( new Element("PID.23", namespace).addContent(dataList.get(i).get(BORN)));
 
         Element pid26 = new Element("PID.26", namespace);
         String rus = "RUS";
@@ -324,17 +249,6 @@ public class MessageA08p02prizOther extends MessageCommon{
 
             in1.addContent(new Element("IN1.2", namespace).addContent(new Element("CWE.1", namespace).addContent("ÎÌÑ")));
 
-//            Element in1_3 = new Element("IN1.3", namespace);
-//            in1.addContent(in1_3);
-//            in1_3.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(SMO)));
-//            in1_3.addContent(new Element("CX.5", namespace).addContent("NII"));
-
-/*            in1.addContent(new Element("IN1.12", namespace).addContent(dataList.get(i).get(D_12)));
-
-            in1.addContent(new Element("IN1.13", namespace).addContent(dataList.get(i).get(PERSON_DATEINPUT)));
-
-            in1.addContent(new Element("IN1.15", namespace).addContent(dataList.get(i).get(OKATO_3)));*/
-
             Element in1_16 = new Element("IN1.16", namespace);
             in1_16.addContent(new Element("XPN.1", namespace).addContent(new Element("FN.1", namespace).addContent(dataList.get(i).get(PERSON_SURNAME))));
             in1_16.addContent(new Element("XPN.2", namespace).addContent(dataList.get(i).get(PERSON_KINDFIRSTNAME)));
@@ -344,12 +258,6 @@ public class MessageA08p02prizOther extends MessageCommon{
 
             in1.addContent(new Element("IN1.18", namespace).addContent(dataList.get(i).get(PERSON_BIRTHDAY)));
 
-//            in1.addContent(new Element("IN1.35", namespace).addContent(dataList.get(i).get(TYPE_POL)));
-
-//            in1.addContent(new Element("IN1.36", namespace).addContent(dataList.get(i).get(POL)));
-
-//            in1.addContent(new Element("IN1.52", namespace).addContent(dataList.get(i).get(BORN)));
-//			System.out.println("Ýòîò ñðàíûé ãóèä ïîøåë â kist guid" + guidMsh);
             listGuid(guidMsh, i, "2");
         }
     }
