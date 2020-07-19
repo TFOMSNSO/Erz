@@ -139,12 +139,12 @@ public class ZpParser2 extends DefaultHandler {
 		   * И после каждого QRI (взял за отметку нового ЗЛ) коллекция зачищается для слудеющего ЗЛ
 		   */
 		
-		ls =  processemptyPID29(curElement,ls);
+/*		ls =  processemptyPID29(curElement,ls);
 		if(curElement.equals("PID.30")) 
 		{
 			if(ls.size() == 3) {}
 			else {zpRecord.setPID29("");}
-		}
+		}*/
 		
 		switch (curElement) {
 
