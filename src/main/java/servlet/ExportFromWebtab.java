@@ -424,7 +424,8 @@ private static final long serialVersionUID = 1L;
 					}*/
 				} //else{	if(i2 > 0){	f.set(6,"â îòâåòå äâà ãëàâíûõ ÅÍÏ");	}}
 
-				list.add(f);
+				if(f.size() > 10)
+					list.add(f);
 			}
 
 		}
