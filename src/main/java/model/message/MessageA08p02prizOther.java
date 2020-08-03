@@ -102,7 +102,10 @@ public class MessageA08p02prizOther extends MessageCommon{
         pid.addContent(pid3_1);
         String seria = dataList.get(i).get(PERSON_SERDOC);
         pid3_1.addContent(new Element("CX.1", namespace).addContent((("".equals(seria) || seria == null) ? "" : seria + " ¹ ") + dataList.get(i).get(PERSON_NUMDOC)));
-        pid3_1.addContent(new Element("CX.5", namespace).addContent(dataList.get(i).get(PERSON_DOCPERSONID)));
+        String docId = dataList.get(i).get(PERSON_DOCPERSONID);
+        if(docId.length() == 0)
+            docId = "14";
+        pid3_1.addContent(new Element("CX.5", namespace).addContent(docId));
 //        pid3_1.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(DATEPASSPORT)));
 //        pid3_1.addContent(new Element("CX.8", namespace).addContent(dataList.get(i).get(D2)));
 
@@ -208,7 +211,10 @@ public class MessageA08p02prizOther extends MessageCommon{
 
     @Override
     protected void createMiddle(int count, Namespace namespace, Element rootElement, String curDate, boolean tt, String kluch) {
-        int person_surname = 0, person_firstname = 1, person_lastname = 2, person_birthday = 3, person_sex = 4, person_serdoc = 5, person_numdoc = 6, person_docid = 7, person_snils = 8;
+        throw new UnsupportedOperationException();
+        /*int person_surname = 0, person_firstname = 1, person_lastname = 2,
+                person_birthday = 3, person_sex = 4, person_serdoc = 5,
+                person_numdoc = 6, person_docid = 7, person_snils = 8;
         PERSON_SURNAME = person_surname;
         PERSON_KINDFIRSTNAME = person_firstname;
         PERSON_KINDLASTNAME = person_lastname;
@@ -249,6 +255,9 @@ public class MessageA08p02prizOther extends MessageCommon{
 
             in1.addContent(new Element("IN1.2", namespace).addContent(new Element("CWE.1", namespace).addContent("ÎÌÑ")));
 
+
+
+
             Element in1_16 = new Element("IN1.16", namespace);
             in1_16.addContent(new Element("XPN.1", namespace).addContent(new Element("FN.1", namespace).addContent(dataList.get(i).get(PERSON_SURNAME))));
             in1_16.addContent(new Element("XPN.2", namespace).addContent(dataList.get(i).get(PERSON_KINDFIRSTNAME)));
@@ -259,7 +268,7 @@ public class MessageA08p02prizOther extends MessageCommon{
             in1.addContent(new Element("IN1.18", namespace).addContent(dataList.get(i).get(PERSON_BIRTHDAY)));
 
             listGuid(guidMsh, i, "2");
-        }
+        }*/
     }
 
     @Override

@@ -569,8 +569,7 @@ private static final long serialVersionUID = 1L;
 						 				
 						 				if(kluch.contains("A08P02howINsmoPID29"))
 					 					{
-//						 					System.out.println("## "+ f3.get(23).trim());
-						 					if(!f3.get(23).trim().equals("")) {
+						 					if(f3.get(23) != null && !f3.get(23).trim().equals("")) {
 						 						f2m = (ArrayList<String>) listWeb1.get(0);
 								 				f2m.set(23, "PID29");
 						 						f.set(23, "У данного ЗЛ уже проставлена ДС");

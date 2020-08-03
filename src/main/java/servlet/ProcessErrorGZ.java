@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
   
 import java.io.UnsupportedEncodingException;
+import java.sql.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -1026,13 +1027,14 @@ public class ProcessErrorGZ extends HttpServlet {
     	}
     	exec.shutdown();
     	allsize = listcol.size();
-    	while(listcol.size() !=0)
+
+
+    	new CheckThread(listcol, request, active).start();
+/*    	while(listcol.size() !=0)
     	{
-//    		System.out.println("ls "+listcol);
     		rez = (double) (allsize - listcol.size())/allsize;
     		pr =(int) (rez *100.0);
     		request.getSession().setAttribute("size", pr);
-//    		System.out.println("pr "+ pr);
     		active = Thread.activeCount();
     		Thread all[] = new Thread[active];
             Thread.enumerate(all);
@@ -1040,10 +1042,44 @@ public class ProcessErrorGZ extends HttpServlet {
     		Thread.sleep(10000);
     	}
     	pr = 100;
-    	request.getSession().setAttribute("size", pr);
+    	request.getSession().setAttribute("size", pr);*/
     }
     
+	private class CheckThread extends Thread {
+		private List<String> listCol;
+		private HttpServletRequest request;
+		private int active;
+		public CheckThread(List<String> listCol, HttpServletRequest request, int act) {
+			this.listCol = listCol;
+			this.request = request;
+			this.active = act;
+		}
 
+		@Override
+		public void run() {
+			int allsize = listCol.size();
+			double rez = 0;
+			int pr= 0;
+			while(listcol.size() !=0)
+			{
+				rez = (double) (allsize - listcol.size())/allsize;
+				pr =(int) (rez *100.0);
+				request.getSession().setAttribute("size", pr);
+				active = Thread.activeCount();
+				Thread all[] = new Thread[active];
+				Thread.enumerate(all);
+
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					this.interrupt();
+				}
+			}
+			pr = 100;
+			request.getSession().setAttribute("size", pr);
+		}
+	}
 	/*
 	 * delete from task excel row that is OK 
 	 */
