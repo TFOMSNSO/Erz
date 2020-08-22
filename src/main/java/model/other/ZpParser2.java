@@ -125,7 +125,9 @@ public class ZpParser2 extends DefaultHandler {
     		zpRecord.setQri2("");
     		zpRecord.setQri3("");
     		zpRecord.setQri4("");
-        }
+			zpRecord.setPID29("");
+
+		}
     	curElement = "";
     }
     
@@ -262,7 +264,9 @@ public class ZpParser2 extends DefaultHandler {
 		if(var.equals("PID.30")) { list.add(var);}
 		
 		if(var.equals("QRI")) { list.clear();}
-		
+//		if(!var.equals("PID.8") && !var.equals("PID.29") && !var.equals("PID.30"))
+//			list.clear();
+
 		return list;
 	}
 
