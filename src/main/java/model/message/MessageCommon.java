@@ -271,9 +271,6 @@ public abstract class MessageCommon implements Message{
 
 	@Override
 	public boolean prepareData(String userMachine, ArrayList<ArrayList<String>> listList1) {
-		// зачищаем от предыдущих дынных
-        System.out.println("Prepare data: datalist = ");
-
 		dataList.clear();
 		dataList = listList1;
 		return true;
@@ -294,7 +291,6 @@ public abstract class MessageCommon implements Message{
 			for (int i = 0; i < personEnpGuid.size(); i++)
 			{
 				taskOracle.insertGuid(statement, personEnpGuid.get(i).get(0), personEnpGuid.get(i).get(1).replace("-", ""));
-//				System.out.println("rememberGuid" + i);
 			}
 			
 		} catch (Exception e) {
@@ -440,10 +436,7 @@ public abstract class MessageCommon implements Message{
 			String d1 = dataList.get(i).get(D1);
 			if(d1.length() > 10)
 				d1 = d1.substring(0, 10);
-	/*		if(dataList.get(i).size() == 72)
-				pid3_5.addContent(new Element("CX.7", namespace).addContent(dataList.get(i).get(D1).substring(0,10)));
-			else
-	*/			pid3_5.addContent(new Element("CX.7", namespace).addContent(d1));
+			pid3_5.addContent(new Element("CX.7", namespace).addContent(d1));
 
 
 
@@ -465,11 +458,9 @@ public abstract class MessageCommon implements Message{
 
 
 		try {
-			System.out.println("Trying to set snils");
 			if (!"".equals(dataList.get(i).get(SNILS)) && dataList.get(i).get(SNILS).length() < 14) {
 				Element pid3_3 = new Element("PID.3", namespace);
 				pid.addContent(pid3_3);
-				System.out.println("setting snils:" + dataList.get(i).get(SNILS));
 				pid3_3.addContent(new Element("CX.1", namespace).addContent(dataList.get(i).get(SNILS)));
 				pid3_3.addContent(new Element("CX.5", namespace).addContent("PEN"));
 			}
@@ -1174,8 +1165,6 @@ public abstract class MessageCommon implements Message{
 	@Override	
 	 public boolean create(String userMachine, String stList) 
 	 {
-
-//		System.out.println("непонятно "+ personEnpGuid+"   "+ personEnpOutput);
 		prepareData(userMachine,stList);
 		int count = dataList.size();
 		if(count < 10) { personEnpGuid.clear(); personEnpOutput.clear(); }
@@ -1233,15 +1222,13 @@ public abstract class MessageCommon implements Message{
 		    FileWriter fw = new FileWriter(Const.PROGRAM_PATH + "50000-" + guidBhs + ".uprmes");
 		    outputter.output(doc, fw);
 		    fw.close();
-		   // отладка xml 
-//		    System.out.println("ConstantiNastrojki "+ConstantiNastrojki.otladkaXML);
 		      if(ConstantiNastrojki.otladkaXML.equals("0"))
 		    {  	
 			    new FileTransferMock().copy(Const.PROGRAM_PATH + "50000-" + guidBhs + ".uprmes", Const.AUTO_PATH  + "50000-" + guidBhs + ".uprmes");
 			    new FileTransferMock().delete(Const.PROGRAM_PATH + "50000-" + guidBhs + ".uprmes");
 		    }    
 		} catch (Exception ex) {
-		    System.out.println(ex.getMessage());
+			ex.printStackTrace();
 		}
 		
 		
@@ -1272,8 +1259,7 @@ public abstract class MessageCommon implements Message{
 			
 			// ДЕЛАЕМ запрос select из таблиц
 			resultSet = new TaskOracle().selectDataForZPAjax(statement, userMachine,parseStList);
-//			System.out.println("ОТРАБОТАЛ БОЛЬШОЙ ЗАПРОС");
-			// берем мета данные  
+			// берем мета данные
 			
 			ResultSetMetaData metaData = resultSet.getMetaData();
 			int prepareData = 1;
@@ -1343,8 +1329,6 @@ public abstract class MessageCommon implements Message{
 	@Override	
 	public boolean create(String userMachine, String stList, int r) 
 	{
-		//System.out.println("create(" + userMachine + "," + stList + "," + r + ")");
-		//System.out.println("hz "+ personEnpGuid+"   "+ personEnpOutput);
 		prepareDataQukly(userMachine,stList);
 		int count = dataList.size();
 		if(count < 10) { personEnpGuid.clear(); personEnpOutput.clear(); }
@@ -1442,7 +1426,6 @@ public abstract class MessageCommon implements Message{
 		String vrm = vr[i].replaceAll("\"", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\{", "").replaceAll("\\}", "").replaceAll("Zp1Ajax:", "").replaceAll("Zp1taskA8P4:", "");
 		parseStList.add(vrm);
 	}
-	//System.out.println("parseStList:" + parseStList);
 	Statement statement = null;
 	Connection conn = null;
 	ResultSet resultSet = null;
@@ -1471,7 +1454,6 @@ public abstract class MessageCommon implements Message{
 		dataListRow.add("ZP1ok");
 		dataListRow.add("UDLfromZp1fiod");
 		dataListRow.add("EnpOutOur=EnpOutFedF");
-		//System.out.println("dataListRow:" + dataListRow);
 		dataList.add(dataListRow);
 		
 		
@@ -1501,7 +1483,6 @@ public abstract class MessageCommon implements Message{
 					dataListRow.add("");
 				}
 			}
-			//System.out.println("add dataListRow:" + dataListRow);
 			dataList.add(dataListRow);
 		}
 		
@@ -1771,11 +1752,6 @@ public abstract class MessageCommon implements Message{
 	 }
 	 rs.close();
 	 conn.close();
-	 
-/*	 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! "+list.get(1).size());
-	 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! "+list);*/
-	 
-	 
  }
  
  private String parseStringDateYYY_MM_DD(String cunvertCurrentDate) throws ParseException
