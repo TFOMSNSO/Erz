@@ -80,7 +80,7 @@ public class WsAnswer extends WebSocketServlet {
 		}
 
 
-		/*
+		/**
 		 * (non-Javadoc)
 		 *
 		 * @see
@@ -93,10 +93,6 @@ public class WsAnswer extends WebSocketServlet {
 		 */
 		protected void onTextMessage(CharBuffer arg0) throws IOException
 		{
-			System.out.println("--->socket got message:" + arg0);
-
-
-
 			if(arg0.toString().contains("USERENTERINTOSYSTEM") || arg0.toString().contains("xmlotladkazaprosa"))
 			{
 				// инициальзация вошедшего при нажатии нв запросы фомс
@@ -106,7 +102,6 @@ public class WsAnswer extends WebSocketServlet {
 				flagOtladkiXML(arg0);
 			} else//?????? ??? ?? ??? ??? switch, ? ?? ??? ??? ???
 				{
-					// ловим комбинацию ключей для zp1
 				if (arg0.toString().equals("ZP1")|| arg0.toString().equals("0"))
 				{
 					System.out.println("Добавлено в ZP1 в коллекцию  "+ arg0.toString());
@@ -259,7 +254,6 @@ public class WsAnswer extends WebSocketServlet {
 				if (listKluchi.size() == 2 && listKluchi.get(0).equals("ZP1") && (listKluchi.get(1).equals("1") || listKluchi.get(1).equals("0")))
 				{
 					methoZp1(myoutbound);
-					// ??????? ????????? ??????
 					listKluchi.clear();
 				} else if(listKluchi.size() == 2 && listKluchi.get(0).equals("ZP1FIODtable")){
 					try {
@@ -271,13 +265,8 @@ public class WsAnswer extends WebSocketServlet {
 					}
 				}
 				else {
-//					System.out.println("size:" + listKluchi.size() + " |list:" + listKluchi);
-					// ???? ?? ?? ? ?????? ?????? ???? ...
 					if (listKluchi.size() == 2 && !listKluchi.get(0).equals("ZP1"))
 					{
-
-						// ????? ?????? ????????? (??? ????) ??? zp1ajax
-
 							if(listKluchi.get(1).substring(2, 9).equals("Zp1Ajax"))
 							{
 
@@ -287,7 +276,6 @@ public class WsAnswer extends WebSocketServlet {
 								} catch (JAXBException e) {
 										e.printStackTrace();
 								}
-								// ??????? ????????? ??????
 								listKluchi.clear();
 							}
 							else if(listKluchi.get(1).substring(2, 13).equals("Zp1taskA8P4"))
@@ -298,7 +286,6 @@ public class WsAnswer extends WebSocketServlet {
 								} catch (JAXBException e) {
 										e.printStackTrace();
 								}
-								// ??????? ????????? ??????
 								listKluchi.clear();
 							}
 							else
@@ -320,21 +307,12 @@ public class WsAnswer extends WebSocketServlet {
 		}
 
 		public void onOpen(WsOutbound outbound) {
-			System.out.println("Open Client websocket");
 			this.myoutbound = outbound;
 		}
 
 		public void onClose(int status) {
-			System.out.println("Close Server websocket");
-
 		}
 
-		/*
-		 * ??? ???????? ? ?????????? index.jsp ???????? ?????????? ?? ?????? ?
-		 * ????? ?? ?????????? ?? ?????? ??? ???????????? ? ?????? USERENTERINTOSYSTEM
-		 * (USERENTERINTOSYSTEMPonomarev) ??? ????????? ? ???????????? ? ??????. ????? ????????
-		 * ??? ?? ???????.
-		 */
 		private String initUsername(CharBuffer arg0) {
 			String vr = null;
 			if (arg0.toString().contains("USERENTERINTOSYSTEM")) {
@@ -344,38 +322,24 @@ public class WsAnswer extends WebSocketServlet {
 			return vr;
 		}
 
-		/*
-		 * ????? ?? ??????? ???????? ???? xmlotladkazaprosa1 ????
-		 * xmlotladkazaprosa0 ??????????? ???? xmlotladkazaprosa ? ?????????
-		 * ???????? ?? ????? ?????
-		 */
 		private void flagOtladkiXML(CharBuffer arg0) {
 			if (arg0.toString().substring(0, 17)
 					.equalsIgnoreCase("xmlotladkazaprosa")) {
 				ConstantiNastrojki.otladkaXML = arg0.toString().substring(17);
-				System.out.println("ConstantiNastrojki.otladkaXML= "
-						+ ConstantiNastrojki.otladkaXML);
 			}
 		}
 
-		/*
-		 * ????? ?????????? ?????? ??? ??????????? ??? ????? zp1
-		 */
 		private void parseEnterMesForZP1(CharBuffer arg0) {
 
 			if (arg0.toString().equals("0")) {
-				System.out.println("получил 0");
 				listKluchi.add(arg0.toString());
 			}
 			if (arg0.toString().equals("1")) {
-				System.out.println("получил 1");
 				listKluchi.add(arg0.toString());
 			}
 			if (arg0.toString().equals("ZP1")) {
-				System.out.println("получил zp1");
 				listKluchi.add(arg0.toString());
 			}
-//			System.out.println("listKluchi " + listKluchi.size());
 		}
 
 		private void methoZp1(WsOutbound myoutbound) throws IOException {
@@ -407,7 +371,6 @@ public class WsAnswer extends WebSocketServlet {
 							if (to_file.exists()) {
 								sentMessages = "> Получен " + to_file.toString();
 								CharBuffer buffer5 = CharBuffer.wrap(sentMessages);
-								// ??????? ???????? ??????
 								if (ConstantiNastrojki.openWorkbookXls == 1) myoutbound.writeTextMessage(buffer5);
 							} else
 							{
@@ -427,7 +390,6 @@ public class WsAnswer extends WebSocketServlet {
 								myoutbound.writeTextMessage(buffer4);
 								System.out.println("ПУТЬ экселя "
 										+ excelFileEssence);
-								// ???? ???? ?????? 1 ??? 0
 								if (listKluchi.get(1).equals("1")) {
 									if (Desktop.isDesktopSupported()) {
 										Desktop.getDesktop().open(
@@ -679,13 +641,7 @@ public class WsAnswer extends WebSocketServlet {
 				   d_13= 777; eNP_1= 777;eNP_2= 777; p14cx1= 777;p14cx5= 777;p14cx6= 777;p14cx7= 777;uSER_PERSON_SURNAME= 777;xPN1= 777;xPN2 = 777;xPN3= 777;uSERNAME= 777;zADMINUS1= 777;zADPLUS40= 777;nBLANC= 777;vS_DATEPLUS1= 777;uSER_ENP= 777;uSER_PERSON_KINDFIRSTNAME= 777;uSER_PERSON_KINDLASTNAME= 777;uSER_SMO= 777;uSER_D_12= 777; d_12_PLUS1= 777;uSER_DOC_DATE= 777;uSER_DOCID= 777;uSER_NUMDOC= 777;uSER_SERDOC= 777;pFR_NOTID= 777;pFR_ID= 777; pFR_SNILS= 777;uSER_POL= 777;uSER_D_13= 777;uSER_OKATO_3= 777;uSER_TYPE_POL= 777;oKATO_3 = 777; tYPE_POL = 777;d_12 = 777;pOL = 777;
 
 				Message messageA03P07 = new MessageA03p07(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, sMO, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
-//				System.out.println("jsonString : " + jsonString);
 				list = parseStringFromList1(jsonString);
-//				System.out.println("\n-------------");
-//				for(ArrayList<String> a : list){
-//					System.out.println(a);
-//				}
-
 
 				messageforallquery2(messageA03P07,myoutbound,list,"A03P07");
 				/*if (task.add(userMachine))
@@ -696,7 +652,6 @@ public class WsAnswer extends WebSocketServlet {
 
 			if(vidZaprosa.equals("A03P07other")){
         		System.out.println("catch A03P07other");
-				System.out.println("json:" + jsonString);
 				int person_surname = 0, person_firstname = 1, person_lastname = 2, person_birthday = 3, person_sex = 4, person_serdoc = 5, person_numdoc = 6, person_docid = 7, person_snils = 8, date_death = 9;
 				Message message = new MessageA03p07other(person_serdoc,person_numdoc,person_docid,person_surname,person_firstname,person_lastname,person_birthday,
 						person_sex,date_death,-1,-1,-1,person_snils,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -714,7 +669,6 @@ public class WsAnswer extends WebSocketServlet {
 
 				ArrayList<ArrayList<String>> l = parseStringFromList1(jsonString.replace("A08P02prizyvOther","list1"));
 
-				System.out.println("parsed A08P02prizyvOther:" + l);
 				messageforallquery2(message,myoutbound,l,vidZaprosa);
         	}
 
@@ -759,7 +713,6 @@ public class WsAnswer extends WebSocketServlet {
 
         	if(vidZaprosa.toString().equals("ZP9"))
 			{
-				System.out.println("??????? ZP9");
 				Message messageZP9 = new MessageZp9();
 
 				if (task.add(userMachine))
@@ -842,8 +795,6 @@ public class WsAnswer extends WebSocketServlet {
 
             			list = parseStringFromList1(jsonString);
 
-						System.out.println("dataList size:" + list.size());
-
 						Message messageZP9enp = new MessageZp9(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, sMO, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
             			messageforallquery2(messageZP9enp,myoutbound,list,"list1enpzp9");
         			}
@@ -855,10 +806,8 @@ public class WsAnswer extends WebSocketServlet {
 
       				   jsonString = jsonString.replaceAll("list1passportzp9", "list1");
         				System.out.println("??????? buttonZP9");
-            			System.out.println("DataPassport "+ jsonString);
 
             			list = parseStringFromList1(jsonString);
-            			System.out.println("parse into ArrayList<ArrayList<String>> "+list);
 
             			Message messageZP9passport = new MessageZp9(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, pERSON_LINKSMOESTABLISHMENTID, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
             			messageforallquery2(messageZP9passport,myoutbound,list,"list1passportzp9");
@@ -871,10 +820,8 @@ public class WsAnswer extends WebSocketServlet {
 
         				jsonString = jsonString.replaceAll("list1snilszp9", "list1");
 
-            			System.out.println("DataPassport "+ jsonString);
 
             			list = parseStringFromList1(jsonString);
-            			System.out.println("parse into ArrayList<ArrayList<String>> "+list);
 
             			Message messageZP9snils = new MessageZp9(pERSON_SERDOC, pERSON_NUMDOC, pERSON_DOCPERSONID, pERSON_SURNAME, pERSON_KINDFIRSTNAME, pERSON_KINDLASTNAME, pERSON_BIRTHDAY, pERSON_SEX, pERSON_LINKSMOESTABLISHMENTID, eNP, pERSON_ADDRESSID, pERSON_DATEINPUT, sNILS, bORN, dATEPASSPORT, eNP_PA, vS_NUM, vS_DATE, zAD, d2, pERSON_LINKSMOESTABLISHMENTID, d_12, d_13, oKATO_3, tYPE_POL, pOL, eNP_1, eNP_2, p14cx1, p14cx5, p14cx6, p14cx7, xPN1, xPN2, xPN3, uSERNAME, zADMINUS1, zADPLUS40, nBLANC, vS_DATEPLUS1, uSER_ENP, uSER_PERSON_SURNAME, uSER_PERSON_KINDFIRSTNAME, uSER_PERSON_KINDLASTNAME, uSER_SMO, uSER_D_12, uSER_D_13, uSER_OKATO_3, uSER_TYPE_POL, uSER_POL, rUSSIAN, d_V, d_SER, d_NUM, pR_FAM, pR_IM, pR_OT, lAST_FAM, lAST_IM, lAST_OT, lAST_DR, pFR_SNILS, pFR_ID, pFR_NOTID, uSER_SERDOC, uSER_NUMDOC, uSER_DOCID, uSER_DOC_DATE, d_12_PLUS1);
             			messageforallquery2(messageZP9snils,myoutbound,list,"list1snilszp9");
@@ -1076,13 +1023,6 @@ public class WsAnswer extends WebSocketServlet {
 		private void messageNoDate(Message mes, WsOutbound myoutbound,	ArrayList<ArrayList<String>> list, String kluch) throws Exception {
 
 			if(mes.create(userMachine, list,kluch)){
-				// 50000-A81268FD-7AFA-4624-BDB0-C9796596D343
-				/*String file = "50000-A6F025D6-9AD3-1964-FF37-460721765516" + ".uprmes";
-				String fileUpr2 = "50000-A6F025D6-9AD3-1964-FF37-460721765516";
-				String sentMessages = "";
-				File to_file = new File(Const.OUTPUTDONE + fileUpr2 + ".uprak2");*/
-
-
 				String file = "50000-" + mes.getGuidBhs() + ".uprmes";
 				String fileUpr2 = "50000-" + mes.getGuidBhs();
 				String sentMessages = "";
@@ -1094,7 +1034,6 @@ public class WsAnswer extends WebSocketServlet {
 				if (ConstantiNastrojki.otladkaXML.equals("0")) {
 
 					while ("".equals(sentMessages)) {
-
 						try {
 							Thread.sleep(20000);
 						} catch (InterruptedException e) {
@@ -1177,7 +1116,6 @@ public class WsAnswer extends WebSocketServlet {
 		}
 
 		private void messageforallquery(Message mes, WsOutbound myoutbound,	ArrayList<ArrayList<String>> list, String kluch) throws Exception {
-//		    System.out.println("All query list:" + list);
 			if (mes.create(userMachine, list,kluch))
 			{
 				String file = "50000-" + mes.getGuidBhs() + ".uprmes";
